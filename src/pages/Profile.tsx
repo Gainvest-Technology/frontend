@@ -1,16 +1,14 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonFooter } from '@ionic/react';
 import React from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonFooter } from '@ionic/react';
 import './Home.css';
 import { NavButtons } from '../components/NavButtons';
 
-const GainVest: React.FC = () => {
+const Profile: React.FC = () => {
 	return (
 		<IonPage>
 			<IonHeader>
 				<IonToolbar color="dark">
-					<IonTitle>
-						<img alt="logo" src="../pages/glo.jpg" />
-					</IonTitle>
+					<IonTitle>Profile</IonTitle>
 					<IonButtons slot="end">
 						<NavButtons />
 					</IonButtons>
@@ -26,4 +24,4 @@ const GainVest: React.FC = () => {
 	);
 };
 
-export default GainVest;
+export default Profile;

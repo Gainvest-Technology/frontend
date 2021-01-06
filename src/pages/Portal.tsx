@@ -24,9 +24,17 @@ const Portal: React.FC = () => {
 	const [ email, setEmail ] = useState<string>();
 	const [ password, setPassword ] = useState<string>();
 
-	const handleLogin = () => {
+	const handleLogin = async () => {
 		console.log('Email: ' + email);
 		console.log('Password: ' + password);
+
+		/*try {
+			await Auth.signIn(email, password);
+			userHasAuthenticated(true);
+			//history.push('/');
+		} catch (e) {
+			alert(e.message);
+		}*/
 	};
 	return (
 		<IonApp>

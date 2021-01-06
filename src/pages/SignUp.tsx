@@ -26,7 +26,8 @@ const SignUp: React.FC = () => {
 		email: string().required().email(),
 		firstName: string().required().min(5).max(32),
 		lastName: string().required().min(5).max(32),
-		password: string().required().min(8)
+		password: string().required().min(8),
+		confirmPassword: string().required().min(8)
 	});
 
 	const { control, handleSubmit, errors } = useForm({
@@ -60,6 +61,18 @@ const SignUp: React.FC = () => {
 				/>
 			),
 			label: 'Password'
+		},
+		{
+			name: 'confirmPassword',
+			component: (
+				<IonInput
+					type="password"
+					value={password}
+					onIonChange={(e) => setPassword(e.detail.value!)}
+					clearOnEdit={false}
+				/>
+			),
+			label: 'Confirm Password'
 		}
 	];
 
