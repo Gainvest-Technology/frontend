@@ -2,7 +2,6 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,9 +21,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Gainvest from './pages/Gainvest101';
 import { Menu } from './components/Menu';
-import MeetTheTeam from './pages/MeetTheTeam';
 import Portal from './pages/Portal';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPass';
@@ -35,9 +32,6 @@ const App: React.FC = () => (
 		<IonReactRouter>
 			<Menu />
 			<IonRouterOutlet id="main">
-				<Route path="/home" component={Home} exact={true} />
-				<Route path="/gainvest" component={Gainvest} exact={true} />
-				<Route path="/meettheteam" component={MeetTheTeam} exact={true} />
 				<Route path="/portal" component={Portal} exact={true} />
 				<Route path="/signup" component={SignUp} exact={true} />
 				<Route path="/forgotpass" component={ForgotPassword} exact={true} />
