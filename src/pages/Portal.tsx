@@ -41,10 +41,10 @@ const Portal: React.FC = () => {
 			<IonPage>
 				<IonHeader>
 					<IonToolbar color="dark">
-						<IonTitle>Gainvest Marketplace</IonTitle>
-						<IonButtons slot="end">
+						<IonTitle>Gainvest Social</IonTitle>
+						{/* <IonButtons slot="end">
 							<NavButtons />
-						</IonButtons>
+						</IonButtons> */}
 					</IonToolbar>
 				</IonHeader>
 				<IonContent fullscreen>

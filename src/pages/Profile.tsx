@@ -17,7 +17,7 @@ const Profile: React.FC = () => {
 			<IonContent fullscreen />
 			<IonFooter>
 				<IonToolbar color="dark">
-					<p style={{ fontSize: 'medium', textAlign: 'center' }}>Gainvest Holdings LLC</p>
+					<p style={{ fontSize: 'medium', textAlign: 'center' }}>Gainvest LLC</p>
 				</IonToolbar>
 			</IonFooter>
 		</IonPage>
