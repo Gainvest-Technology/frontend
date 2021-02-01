@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
 import {
-	IonApp,
-	IonButtons,
 	IonContent,
-	IonRow,
-	IonCol,
-	IonAlert,
 	IonHeader,
 	IonPage,
 	IonTitle,
 	IonToolbar,
-	IonButton,
+	IonButtons,
 	IonItem,
 	IonLabel,
 	IonInput,
+	IonCheckbox,
+	IonButton,
+	IonRow,
+	IonCol,
 	IonFooter,
-	IonIcon
+	IonApp,
+	IonAlert
 } from '@ionic/react';
-import { NavButtons } from '../components/NavButtons';
-import { personCircle } from 'ionicons/icons';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './Home.css';
 import axios from 'axios';
 
-const SignUp: React.FC = () => {
+import { NavButtons } from '../components/NavButtons';
+
+const GvMessenger: React.FC = () => {
 	const history = useHistory();
-	const [ firstName, setFirstName ] = useState<string>();
-	const [ lastName, setLastName ] = useState<string>();
 	const [ email, setEmail ] = useState<string>();
 	const [ password, setPassword ] = useState<string>();
-	const [ confirmPassword, setConfirmPassword ] = useState<string>();
 	const [ iserror, setIserror ] = useState<boolean>(false);
 	const [ message, setMessage ] = useState<string>('');
 
@@ -39,7 +37,10 @@ const SignUp: React.FC = () => {
 		return regexp.test(String(email).toLowerCase());
 	}
 
-	const handleRegister = async (event: { preventDefault: () => void }) => {
+	const handleLogin = async (event: { preventDefault: () => void }) => {
+		console.log('Email: ' + email);
+		console.log('Password: ' + password);
+
 		if (!email) {
 			setMessage('Please enter a valid email');
 			setIserror(true);
@@ -56,28 +57,25 @@ const SignUp: React.FC = () => {
 			setIserror(true);
 			return;
 		}
-		const signUpData = {
-			firstName: firstName,
-			lastName: lastName,
+		const loginData = {
 			email: email,
-			password: password,
-			confirmPassword: confirmPassword
+			password: password
 		};
 
 		const api = axios.create({
-			baseURL: `http://gainvest-api.com/`
+			baseURL: `https://reqres.in/api`
 		});
+
 		api
-			.post('/signup', signUpData)
-			.then(() => {
-				history.push('/profile/' + email);
+			.post('/users/login', loginData)
+			.then((res) => {
+				history.push('/forgotpass/' + email);
 			})
 			.catch((error) => {
 				setMessage('Auth failure! Please create an account');
 				setIserror(true);
 			});
 	};
-
 	return (
 		<IonApp>
 			<IonPage>
@@ -90,36 +88,15 @@ const SignUp: React.FC = () => {
 					</IonToolbar>
 				</IonHeader>
 				<IonContent fullscreen>
-					<IonRow>
-						<IonCol>
-							<IonAlert
-								isOpen={iserror}
-								onDidDismiss={() => setIserror(false)}
-								cssClass="my-custom-class"
-								header={'Error!'}
-								message={message}
-								buttons={[ 'Dismiss' ]}
-							/>
-						</IonCol>
-					</IonRow>
-					<IonRow>
-						<IonCol>
-							<IonIcon style={{ fontSize: '70px', color: '#0040ff' }} icon={personCircle} />
-						</IonCol>
-					</IonRow>
+					<IonAlert
+						isOpen={iserror}
+						onDidDismiss={() => setIserror(false)}
+						cssClass="my-custom-class"
+						header={'Error!'}
+						message={message}
+						buttons={[ 'Dismiss' ]}
+					/>
 					<form className="ion-padding">
-						<IonItem>
-							<IonLabel position="floating">First Name</IonLabel>
-							<IonInput
-								type="text"
-								value={firstName}
-								onIonChange={(e) => setFirstName(e.detail.value!)}
-							/>
-						</IonItem>
-						<IonItem>
-							<IonLabel position="floating">Last Name</IonLabel>
-							<IonInput type="text" value={lastName} onIonChange={(e) => setLastName(e.detail.value!)} />
-						</IonItem>
 						<IonItem>
 							<IonLabel position="floating">Email</IonLabel>
 							<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
@@ -132,22 +109,29 @@ const SignUp: React.FC = () => {
 								onIonChange={(e) => setPassword(e.detail.value!)}
 							/>
 						</IonItem>
-						<IonItem>
-							<IonLabel position="floating">Confirm Password</IonLabel>
-							<IonInput
-								type="password"
-								value={password}
-								onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-							/>
-						</IonItem>
-						<IonButton className="ion-margin-top" onClick={handleRegister} expand="block">
-							Register
+						<IonRow>
+							<IonCol>
+								<IonItem lines="none">
+									<IonLabel>Remember Me</IonLabel>
+									<IonCheckbox defaultChecked={true} slot="start" />
+								</IonItem>
+							</IonCol>
+							<IonCol>
+								<IonItem lines="none">
+									<IonLabel>
+										<a href="/forgotpass">Forgot Password?</a>
+									</IonLabel>
+								</IonItem>
+							</IonCol>
+						</IonRow>
+						<IonButton className="ion-margin-top" type="submit" onClick={handleLogin} expand="block">
+							Login
 						</IonButton>
 					</form>
 					<IonRow>
 						<IonCol>
 							<p style={{ fontSize: 'medium', textAlign: 'center' }}>
-								Already have an account? <a href="/portal">Sign In!</a>
+								Don't have an account? <a href="/signup">Sign up!</a>
 							</p>
 						</IonCol>
 					</IonRow>
@@ -162,4 +146,4 @@ const SignUp: React.FC = () => {
 	);
 };
 
-export default SignUp;
+export default GvMessenger;

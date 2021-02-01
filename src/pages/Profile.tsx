@@ -8,7 +8,7 @@ const Profile: React.FC = () => {
 		<IonPage>
 			<IonHeader>
 				<IonToolbar color="dark">
-					<IonTitle>Profile</IonTitle>
+					<IonTitle />
 					<IonButtons slot="end">
 						<NavButtons />
 					</IonButtons>
