@@ -27,10 +27,11 @@ import { NavButtons } from '../components/NavButtons';
 
 const Portal: React.FC = () => {
 	const history = useHistory();
-	const [ email, setEmail ] = useState<string>('todd@gmail.com');
-	const [ password, setPassword ] = useState<string>('indians1');
+	const [ email, setEmail ] = useState<string>('');
+	const [ password, setPassword ] = useState<string>('');
 	const [ iserror, setIserror ] = useState<boolean>(false);
 	const [ message, setMessage ] = useState<string>('');
+	//const [ token, setToken ] = useState<string>('');
 
 	function validateEmail(email: string) {
 		const regexp = new RegExp(
@@ -63,15 +64,29 @@ const Portal: React.FC = () => {
 		};
 
 		const api = axios.create({
-			baseURL: `http://gainvest-api.com/`
+			baseURL: process.env.
 		});
 		api
-			.post('/users/login', loginData)
-			.then(() => {
-				history.push('/profile/' + email);
+			.post('/users/chat-login', loginData)
+			.then((response) => {
+				const token = response.data.token;
+				const name = response.data.name;
+				const email = response.data.email;
+				const id = response.data.id;
+				history.push({
+					pathname: '/chat',
+					state: {
+						data: {
+							token: token,
+							name: name,
+							email: email,
+							id: id
+						}
+					}
+				});
 			})
 			.catch((error) => {
-				setMessage('Auth failure! Please create an account');
+				setMessage('Email and/or Password Is Incorrect');
 				setIserror(true);
 			});
 	};

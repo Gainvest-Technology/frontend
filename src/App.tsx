@@ -22,9 +22,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { Menu } from './components/Menu';
-import Home from './pages/Home';
+//import Home from './pages/Home';
 import Portal from './pages/Portal';
 import SignUp from './pages/SignUp';
+import Chat from './pages/Chat';
 import ForgotPassword from './pages/ForgotPass';
 import Profile from './pages/Profile';
 
@@ -33,12 +34,14 @@ const App: React.FC = () => (
 		<IonReactRouter>
 			<Menu />
 			<IonRouterOutlet id="main">
-				<Route path="/home" component={Home} exact={true} />
+				<Route path="/" component={Portal} exact={true} />
+				<Route path="/chat" component={Chat} exact={true} />
+				{/* <Route path="/home" component={Home} exact={true} /> */}
 				<Route path="/portal" component={Portal} exact={true} />
 				<Route path="/signup" component={SignUp} exact={true} />
 				<Route path="/forgotpass" component={ForgotPassword} exact={true} />
 				<Route path="/profile" component={Profile} exact={true} />
-				<Route exact path="/" render={() => <Redirect to="/home" />} />
+				<Route render={() => <Redirect to="/" />} />
 			</IonRouterOutlet>
 		</IonReactRouter>
 	</IonApp>

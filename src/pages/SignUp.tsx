@@ -30,6 +30,7 @@ const SignUp: React.FC = () => {
 	const [ password, setPassword ] = useState<string>();
 	const [ confirmPassword, setConfirmPassword ] = useState<string>();
 	const [ iserror, setIserror ] = useState<boolean>(false);
+	const [ accountCreated, setAccountCreated ] = useState<boolean>(false);
 	const [ message, setMessage ] = useState<string>('');
 
 	function validateEmail(email: string) {
@@ -56,24 +57,34 @@ const SignUp: React.FC = () => {
 			setIserror(true);
 			return;
 		}
+
+		if (password !== confirmPassword) {
+			setMessage('Passwords Do Not Match');
+			setIserror(true);
+			return;
+		}
+
+		
 		const signUpData = {
-			firstName: firstName,
-			lastName: lastName,
+			first_name: firstName,
+			last_name: lastName,
 			email: email,
 			password: password,
-			confirmPassword: confirmPassword
+			//confirmPassword: confirmPassword
 		};
 
 		const api = axios.create({
-			baseURL: `http://gainvest-api.com/`
+			baseURL: 'http://localhost:3000/'
 		});
+
 		api
 			.post('/signup', signUpData)
-			.then(() => {
-				history.push('/profile/' + email);
+			.then((response) => {
+				setMessage('Account Created Successfully');
+				setAccountCreated(true);
 			})
 			.catch((error) => {
-				setMessage('Auth failure! Please create an account');
+				setMessage(error);
 				setIserror(true);
 			});
 	};
@@ -99,6 +110,18 @@ const SignUp: React.FC = () => {
 								header={'Error!'}
 								message={message}
 								buttons={[ 'Dismiss' ]}
+							/>
+						</IonCol>
+					</IonRow>
+					<IonRow>
+						<IonCol>
+							<IonAlert
+								isOpen={accountCreated}
+								onDidDismiss={() => history.push('/')}
+								cssClass="my-custom-class"
+								header={'Success!'}
+								message={message}
+								buttons={[ 'Ok' ]}
 							/>
 						</IonCol>
 					</IonRow>
@@ -130,14 +153,16 @@ const SignUp: React.FC = () => {
 								type="password"
 								value={password}
 								onIonChange={(e) => setPassword(e.detail.value!)}
+								id="password"
 							/>
 						</IonItem>
 						<IonItem>
 							<IonLabel position="floating">Confirm Password</IonLabel>
 							<IonInput
 								type="password"
-								value={password}
+								value={confirmPassword}
 								onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+								id="confirm"
 							/>
 						</IonItem>
 						<IonButton className="ion-margin-top" onClick={handleRegister} expand="block">

@@ -3,6 +3,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonFo
 import './Home.css';
 import { NavButtons } from '../components/NavButtons';
 
+
 const Profile: React.FC = () => {
 	return (
 		<IonPage>
