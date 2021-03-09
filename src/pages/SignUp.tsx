@@ -15,7 +15,8 @@ import {
 	IonLabel,
 	IonInput,
 	IonFooter,
-	IonIcon
+	IonIcon,
+	IonImg
 } from '@ionic/react';
 import { NavButtons } from '../components/NavButtons';
 import { personCircle } from 'ionicons/icons';
@@ -32,6 +33,7 @@ const SignUp: React.FC = () => {
 	const [ iserror, setIserror ] = useState<boolean>(false);
 	const [ accountCreated, setAccountCreated ] = useState<boolean>(false);
 	const [ message, setMessage ] = useState<string>('');
+	const [ userData, setUserData ] = useState<any>({});
 
 	function validateEmail(email: string) {
 		const regexp = new RegExp(
@@ -74,12 +76,23 @@ const SignUp: React.FC = () => {
 		};
 
 		const api = axios.create({
-			baseURL: 'http://localhost:3000/'
+			//baseURL: 'http://localhost:3000/'
+			baseURL: 'https://gainvest-api.com'
 		});
 
 		api
 			.post('/signup', signUpData)
 			.then((response) => {
+				setUserData({
+					token: response.data.token,
+					chatToken: response.data.chatToken,
+					firstName: response.data.firstName,
+					lastName: response.data.lastName,
+					email: response.data.email,
+					id: response.data.id,
+					chatApiKey: response.data.chatApiKey,
+					chatId: response.data.chatId
+				})
 				setMessage('Account Created Successfully');
 				setAccountCreated(true);
 			})
@@ -89,18 +102,19 @@ const SignUp: React.FC = () => {
 			});
 	};
 
+	function goToIntro(): void {
+		history.push({
+            pathname: '/intro',
+            state: {
+                data: userData
+            }
+        });
+	}
+
 	return (
 		<IonApp>
 			<IonPage>
-				<IonHeader>
-					<IonToolbar color="dark">
-						<IonTitle>Gainvest Marketplace</IonTitle>
-						<IonButtons slot="end">
-							<NavButtons />
-						</IonButtons>
-					</IonToolbar>
-				</IonHeader>
-				<IonContent fullscreen>
+				<IonContent class="space-bg" fullscreen>
 					<IonRow>
 						<IonCol>
 							<IonAlert
@@ -117,7 +131,7 @@ const SignUp: React.FC = () => {
 						<IonCol>
 							<IonAlert
 								isOpen={accountCreated}
-								onDidDismiss={() => history.push('/')}
+								onDidDismiss={() => goToIntro()}
 								cssClass="my-custom-class"
 								header={'Success!'}
 								message={message}
@@ -126,12 +140,12 @@ const SignUp: React.FC = () => {
 						</IonCol>
 					</IonRow>
 					<IonRow>
-						<IonCol>
-							<IonIcon style={{ fontSize: '70px', color: '#0040ff' }} icon={personCircle} />
+						<IonCol class="logo-container">
+							<IonImg class="logo" src='https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png' />
 						</IonCol>
 					</IonRow>
-					<form className="ion-padding">
-						<IonItem>
+					<form className="ion-padding form">
+						<IonItem class="login-input">
 							<IonLabel position="floating">First Name</IonLabel>
 							<IonInput
 								type="text"
@@ -139,15 +153,15 @@ const SignUp: React.FC = () => {
 								onIonChange={(e) => setFirstName(e.detail.value!)}
 							/>
 						</IonItem>
-						<IonItem>
+						<IonItem class="login-input">
 							<IonLabel position="floating">Last Name</IonLabel>
 							<IonInput type="text" value={lastName} onIonChange={(e) => setLastName(e.detail.value!)} />
 						</IonItem>
-						<IonItem>
+						<IonItem class="login-input">
 							<IonLabel position="floating">Email</IonLabel>
 							<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
 						</IonItem>
-						<IonItem>
+						<IonItem class="login-input">
 							<IonLabel position="floating">Password</IonLabel>
 							<IonInput
 								type="password"
@@ -156,7 +170,7 @@ const SignUp: React.FC = () => {
 								id="password"
 							/>
 						</IonItem>
-						<IonItem>
+						<IonItem class="login-input">
 							<IonLabel position="floating">Confirm Password</IonLabel>
 							<IonInput
 								type="password"
@@ -188,3 +202,5 @@ const SignUp: React.FC = () => {
 };
 
 export default SignUp;
+
+

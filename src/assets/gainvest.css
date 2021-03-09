@@ -1,0 +1,236 @@
+.space-bg {
+    --background: #fff url("./galaxy.jpg") no-repeat center center / cover;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  margin: 30px;
+  padding: 15px;
+  background: #f5f6f9;
+  border-radius: 5px;
+}
+
+.login-input {
+  --background: #f5f6f7;
+  --color: #222428;
+}
+
+.header {
+  --background: #fff;
+  padding-left: 10px;
+}
+
+.dark {
+  --background: #212326;
+  --color: #ededed;
+}
+
+.light {
+  --background: #ededed;
+  --color: #212326;
+}
+
+.section-bg {
+  --background: #e3e3e3;
+}
+
+.margin {
+  margin: 20px;
+}
+
+.padding {
+  padding: 20px;
+}
+
+.h1 {
+  margin: 20px;
+  text-align: center;
+}
+
+.menu-tabs {
+  --background: #212326;
+}
+
+.tabby {
+  --background: #212326;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-child {
+  flex: 1;
+}
+
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 8px;
+}
+
+.card {
+  background: #e3e3e3;
+}
+
+.blue-gradient {
+  background: rgb(21,0,255);
+  background: linear-gradient(90deg, rgba(21,0,255,1) 0%, rgba(105,103,255,1) 12%, rgba(255,255,255,1) 100%); 
+}
+
+.card-header {
+  color: #ededed;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.card-content {
+  color: #212326;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.level {
+  background: #00cc00;
+  font-weight: bold;
+  font-size: 26px;
+  text-align: center;
+  color: #e3e3e3;
+}
+
+.stat-header {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.stat-container {
+  height: 80px;
+}
+
+.stat-label {
+  text-align: center;
+  font-size: 14px;
+}
+
+.nav-button {
+  text-align: center;
+}
+
+.select-label {
+  --background: #ededed;
+  --color: #000026;
+}
+
+.select-label .popover-content {
+  --background: #ededed;
+  left: 0px;
+}
+
+.select-label .popover-content.sc-ion-popover-md-h {
+  width: 80%;
+}
+
+.select-label .list-md  {
+  background: #ededed;
+}
+
+.sc-ion-select-popover-h ion-list.sc-ion-select-popover {
+  background: #ededed;
+}
+
+.radio-icon {
+  background: rgb(21,0,255);
+  background: linear-gradient(90deg, rgba(21,0,255,1) 0%, rgba(105,103,255,1) 12%, rgba(255,255,255,1) 100%); 
+}
+
+.select-label .in-item  {
+	--max-width: 75%;
+}
+
+.portfolio-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.portfolio-item div {
+  flex: 1;
+}
+
+.list-header {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 30px;
+  color: #212326;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.anchor-button {
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  padding: 5px 10px;
+  background: rgb(21,0,255);
+  color: #ededed;
+  border-radius: 6px;
+}
+
+.bg-and-text {
+  --color: #212326;
+  --background: #ededed;
+  background: #ededed;
+}
+
+.fund-container {
+  margin: 10px 10px 20px 10px;
+  padding: 10px;
+}
+
+.learn-more {
+  text-decoration: none;
+  padding: 10px;
+  background: #2fb982;
+  color: #ededed;
+  font-weight: bold;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+}
+
+.invest {
+  text-decoration: none;
+  padding: 10px;
+  background: #4697b9;
+  color: #ededed;
+  font-weight: bold;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+}
+
+.fund-header {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.fund-row {
+  margin: 10px 0px;
+}
