@@ -1,121 +1,206 @@
 import React, { useState } from 'react';
 import {
+	IonApp,
+	IonButtons,
 	IonContent,
+	IonRow,
+	IonCol,
+	IonAlert,
 	IonHeader,
 	IonPage,
 	IonTitle,
 	IonToolbar,
 	IonButton,
-	IonText,
 	IonItem,
 	IonLabel,
 	IonInput,
-	IonCheckbox,
-	IonFooter
+	IonFooter,
+	IonIcon,
+	IonImg
 } from '@ionic/react';
-import { useForm } from 'react-hook-form';
 import { NavButtons } from '../components/NavButtons';
-import { object, string } from 'yup';
-import Input, { InputProps } from '../components/Input';
+import { personCircle } from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUp: React.FC = () => {
+	const history = useHistory();
+	const [ firstName, setFirstName ] = useState<string>();
+	const [ lastName, setLastName ] = useState<string>();
 	const [ email, setEmail ] = useState<string>();
 	const [ password, setPassword ] = useState<string>();
+	const [ confirmPassword, setConfirmPassword ] = useState<string>();
+	const [ iserror, setIserror ] = useState<boolean>(false);
+	const [ accountCreated, setAccountCreated ] = useState<boolean>(false);
+	const [ message, setMessage ] = useState<string>('');
+	const [ userData, setUserData ] = useState<any>({});
 
-	const validationSchema = object().shape({
-		email: string().required().email(),
-		firstName: string().required().min(5).max(32),
-		lastName: string().required().min(5).max(32),
-		password: string().required().min(8),
-		confirmPassword: string().required().min(8)
-	});
+	function validateEmail(email: string) {
+		const regexp = new RegExp(
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		);
+		return regexp.test(String(email).toLowerCase());
+	}
 
-	const { control, handleSubmit, errors } = useForm({
-		validationSchema
-	});
-
-	const formFields: InputProps[] = [
-		{
-			name: 'firstName',
-			component: <IonInput type="text" />,
-			label: 'First Name'
-		},
-		{
-			name: 'lastName',
-			component: <IonInput type="text" />,
-			label: 'Last Name'
-		},
-		{
-			name: 'email',
-			component: <IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />,
-			label: 'Email'
-		},
-		{
-			name: 'password',
-			component: (
-				<IonInput
-					type="password"
-					value={password}
-					onIonChange={(e) => setPassword(e.detail.value!)}
-					clearOnEdit={false}
-				/>
-			),
-			label: 'Password'
-		},
-		{
-			name: 'confirmPassword',
-			component: (
-				<IonInput
-					type="password"
-					value={password}
-					onIonChange={(e) => setPassword(e.detail.value!)}
-					clearOnEdit={false}
-				/>
-			),
-			label: 'Confirm Password'
+	const handleRegister = async (event: { preventDefault: () => void }) => {
+		if (!email) {
+			setMessage('Please enter a valid email');
+			setIserror(true);
+			return;
 		}
-	];
+		if (validateEmail(email) === false) {
+			setMessage('Your email is invalid');
+			setIserror(true);
+			return;
+		}
 
-	const registerUser = (data: any) => {
-		console.log('creating a new user account with: ', data);
+		if (!password || password.length < 6) {
+			setMessage('Please enter your password');
+			setIserror(true);
+			return;
+		}
+
+		if (password !== confirmPassword) {
+			setMessage('Passwords Do Not Match');
+			setIserror(true);
+			return;
+		}
+
+		
+		const signUpData = {
+			first_name: firstName,
+			last_name: lastName,
+			email: email,
+			password: password,
+			//confirmPassword: confirmPassword
+		};
+
+		const api = axios.create({
+			//baseURL: 'http://localhost:3000/'
+			baseURL: 'https://gainvest-api.com'
+		});
+
+		api
+			.post('/signup', signUpData)
+			.then((response) => {
+				setUserData({
+					token: response.data.token,
+					chatToken: response.data.chatToken,
+					firstName: response.data.firstName,
+					lastName: response.data.lastName,
+					email: response.data.email,
+					id: response.data.id,
+					chatApiKey: response.data.chatApiKey,
+					chatId: response.data.chatId
+				})
+				setMessage('Account Created Successfully');
+				setAccountCreated(true);
+			})
+			.catch((error) => {
+				setMessage(error);
+				setIserror(true);
+			});
 	};
 
+	function goToIntro(): void {
+		history.push({
+            pathname: '/intro',
+            state: {
+                data: userData
+            }
+        });
+	}
+
 	return (
-		<IonPage>
-			<IonHeader>
-				<IonToolbar color="dark">
-					<IonTitle style={{ textAlign: 'center' }}>Sign Up</IonTitle>
-					<IonButton slot="end">
-						<NavButtons />
-					</IonButton>
-				</IonToolbar>
-			</IonHeader>
-			<IonContent fullscreen>
-				<div className="ion-padding">
-					<IonText color="muted">
-						<h2>Create Account</h2>
-					</IonText>
-					<form onSubmit={handleSubmit(registerUser)}>
-						{formFields.map((field, index) => (
-							<Input {...field} control={control} key={index} errors={errors} />
-						))}
-						<IonItem>
-							<IonLabel>I agree to the terms of service</IonLabel>
-							<IonCheckbox slot="start" />
+		<IonApp>
+			<IonPage>
+				<IonContent class="space-bg" fullscreen>
+					<IonRow>
+						<IonCol>
+							<IonAlert
+								isOpen={iserror}
+								onDidDismiss={() => setIserror(false)}
+								cssClass="my-custom-class"
+								header={'Error!'}
+								message={message}
+								buttons={[ 'Dismiss' ]}
+							/>
+						</IonCol>
+					</IonRow>
+					<IonRow>
+						<IonCol>
+							<IonAlert
+								isOpen={accountCreated}
+								onDidDismiss={() => goToIntro()}
+								cssClass="my-custom-class"
+								header={'Success!'}
+								message={message}
+								buttons={[ 'Ok' ]}
+							/>
+						</IonCol>
+					</IonRow>
+					<IonRow>
+						<IonCol class="logo-container">
+							<IonImg class="logo" src='https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png' />
+						</IonCol>
+					</IonRow>
+					<form className="ion-padding form">
+						<IonItem class="login-input">
+							<IonLabel position="floating">First Name</IonLabel>
+							<IonInput
+								type="text"
+								value={firstName}
+								onIonChange={(e) => setFirstName(e.detail.value!)}
+							/>
 						</IonItem>
-						<IonButton expand="block" type="submit" className="ion-margin-top">
+						<IonItem class="login-input">
+							<IonLabel position="floating">Last Name</IonLabel>
+							<IonInput type="text" value={lastName} onIonChange={(e) => setLastName(e.detail.value!)} />
+						</IonItem>
+						<IonItem class="login-input">
+							<IonLabel position="floating">Email</IonLabel>
+							<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
+						</IonItem>
+						<IonItem class="login-input">
+							<IonLabel position="floating">Password</IonLabel>
+							<IonInput
+								type="password"
+								value={password}
+								onIonChange={(e) => setPassword(e.detail.value!)}
+								id="password"
+							/>
+						</IonItem>
+						<IonItem class="login-input">
+							<IonLabel position="floating">Confirm Password</IonLabel>
+							<IonInput
+								type="password"
+								value={confirmPassword}
+								onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+								id="confirm"
+							/>
+						</IonItem>
+						<IonButton className="ion-margin-top" onClick={handleRegister} expand="block">
 							Register
 						</IonButton>
 					</form>
-				</div>
-			</IonContent>
-			<IonFooter>
-				<IonToolbar color="dark">
-					<p style={{ fontSize: 'medium', textAlign: 'center' }}>Gainvest Holdings LLC</p>
-				</IonToolbar>
-			</IonFooter>
-		</IonPage>
+					<IonRow>
+						<IonCol>
+							<p style={{ fontSize: 'medium', textAlign: 'center' }}>
+								Already have an account? <a href="/portal">Sign In!</a>
+							</p>
+						</IonCol>
+					</IonRow>
+				</IonContent>
+				<IonFooter>
+					<IonToolbar color="dark">
+						<p style={{ fontSize: 'medium', textAlign: 'center' }}>Gainvest Holdings LLC</p>
+					</IonToolbar>
+				</IonFooter>
+			</IonPage>
+		</IonApp>
 	);
 };
 
 export default SignUp;
+
+
