@@ -24,13 +24,13 @@ const GainvestChat: React.FC = (props: any) => {
 	//const [ chatClient, setChatClient ] = useState<any>(StreamChat.getInstance('f59jfmz43xe6'));
 	const [ chatComponent, setChatComponent ] = useState<any>();
 	const history = useHistory();
+	const filters = { type: 'messaging' };
+	
+
+	const [chatClient, setChatClient] = useState<any>();
 
 	useEffect(() => {
 		if (props.location.state) {
-
-			// if (!props.location.state.data.id) {
-			// 	history.push({pathname: '/login'});
-			// }
 
 			const firstName = props.location.state.data.firstName;
 			const lastName = props.location.state.data.lastName;
@@ -40,47 +40,98 @@ const GainvestChat: React.FC = (props: any) => {
 			const token = props.location.state.data.chatToken;
 			const chatApiKey = props.location.state.data.chatApiKey;
 
-			const chatClient = new StreamChat(chatApiKey);
+			const initChat = async () => {
+				const chatClient = StreamChat.getInstance(chatApiKey);
 
-			chatClient.connectUser(
-				{
-					id: chatId,
-					name: firstName + ' ' + lastName,
-					image: 'https://getstream.io/random_svg/?name=' + firstName
-				},
-				token
-			);
+				await chatClient.connectUser(
+					{
+						id: chatId,
+						name: firstName + ' ' + lastName,
+						image: 'https://getstream.io/random_svg/?name=' + firstName
+					},
+					token
+				);
+
+				const chatComponent = <Chat client={chatClient} theme={chatStyle}>
+	 					<ChannelList filters={filters}/>
+	 					<Channel>
+	 						<Window>
+	 						<ChannelHeader />
+	 						<MessageList />
+	 						<MessageInput />
+	 						</Window>
+	 						<Thread />
+						</Channel>
+					</Chat>
+
+	 			setChatComponent(chatComponent);
+
+				//setChatClient(chatClient);
+			};
+			
+			initChat();
+		}
+	},[props]);
+
+
+	
+
+	// useEffect(() => {
+	// 	if (props.location.state) {
+
+	// 		// if (!props.location.state.data.id) {
+	// 		// 	history.push({pathname: '/login'});
+	// 		// }
+
+	// 		const firstName = props.location.state.data.firstName;
+	// 		const lastName = props.location.state.data.lastName;
+    //         const name = firstName + ' ' + lastName;
+
+	// 		const chatId = props.location.state.data.chatId;
+	// 		const token = props.location.state.data.chatToken;
+	// 		const chatApiKey = props.location.state.data.chatApiKey;
+
+	// 		const chatClient = new StreamChat(chatApiKey);
+
+	// 		chatClient.connectUser(
+	// 			{
+	// 				id: chatId,
+	// 				name: firstName + ' ' + lastName,
+	// 				image: 'https://getstream.io/random_svg/?name=' + firstName
+	// 			},
+	// 			token
+	// 		);
 				
-			// const channel = chatClient.channel('messaging', 'General', {
-			// 	// add as many custom fields as you'd like
-			// 	name: 'General Public Chat',
-			// });
+	// 		// const channel = chatClient.channel('messaging', 'General', {
+	// 		// 	// add as many custom fields as you'd like
+	// 		// 	name: 'General Public Chat',
+	// 		// });
 
 			
 
-			const chatChannel = chatClient.channel('messaging', 'GainvestChatPreview', {
-				// add as many custom fields as you'd like
-				name: 'Investors - General',
-			});
+	// 		const chatChannel = chatClient.channel('messaging', 'GainvestChatPreview', {
+	// 			// add as many custom fields as you'd like
+	// 			name: 'Investors - General',
+	// 		});
 
-			chatChannel.watch().then(() => {
-				const chatComponent = <Chat client={chatClient} theme={chatStyle}>
-					<ChannelList/>
-						<Channel channel={chatChannel}>
-							<Window>
-							<ChannelHeader />
-							<MessageList />
-							<MessageInput />
-							</Window>
-							<Thread />
-					</Channel>
-				</Chat>
+	// 		chatChannel.watch().then(() => {
+	// 			const chatComponent = <Chat client={chatClient} theme={chatStyle}>
+	// 				<ChannelList/>
+	// 					<Channel channel={chatChannel}>
+	// 						<Window>
+	// 						<ChannelHeader />
+	// 						<MessageList />
+	// 						<MessageInput />
+	// 						</Window>
+	// 						<Thread />
+	// 				</Channel>
+	// 			</Chat>
 
-				setChatComponent(chatComponent);
-			});
+	// 			setChatComponent(chatComponent);
+	// 		});
 
-		}
-	},[props]);  
+	// 	}
+	// },[props]);  
 
 	function navigate(route: string) {
         history.push({
