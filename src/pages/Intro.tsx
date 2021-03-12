@@ -56,7 +56,7 @@ const Intro: React.FC = (props: any) => {
     }
 
 	return (
-		<IonApp>
+
 			<IonPage>
 				<IonContent fullscreen>
                     <video id="myVideo" width="100%" height="100%" autoPlay onEnded={goHome}>
@@ -65,7 +65,7 @@ const Intro: React.FC = (props: any) => {
                     </video>
 				</IonContent>
 			</IonPage>
-		</IonApp>
+
 	);
 };
 

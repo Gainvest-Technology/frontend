@@ -18,7 +18,7 @@ import {
 } from '@ionic/react';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import './Home.css';
+//import './Home.css';
 import axios from 'axios';
 
 import { NavButtons } from '../components/NavButtons';

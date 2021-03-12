@@ -113,7 +113,6 @@ const Portal: React.FC = () => {
 	};
 
 	return (
-		<IonApp>
 			<IonPage>
 				{/* <IonHeader>
 					<IonToolbar color="dark">
@@ -199,7 +198,6 @@ const Portal: React.FC = () => {
 					}} */}
 				{/* </UserContext.Consumer> */}
 			</IonPage>
-		</IonApp>
 	);
 };
 

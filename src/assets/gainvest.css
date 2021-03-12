@@ -58,6 +58,8 @@
 
 .menu-tabs {
   --background: #212326;
+  z-index: 10000000;
+  --z-index: 10000000;
 }
 
 .tabby {
@@ -233,4 +235,13 @@
 
 .fund-row {
   margin: 10px 0px;
+}
+
+/* ion-col{
+  pointer-events:all!important;
+} */
+
+.nav-toolbar-item:hover {
+  background: #ededed;
+  color: #212326;
 }

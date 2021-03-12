@@ -1,6 +1,6 @@
-import React, { useDebugValue } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
+import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -32,8 +32,10 @@ import Intro from './pages/Intro';
 import Dashboard from './pages/Dashboard';
 import Details from './pages/Details';
 import Funds from './pages/Funds';
-import { businessSharp, chatboxEllipsesSharp, documentOutline, documentSharp, documentsSharp, homeSharp, menuSharp } from 'ionicons/icons';
-import { UserContext } from './contexts/UserContext'
+// import { UserContext } from './contexts/UserContext'
+
+import LogRocket from 'logrocket';
+LogRocket.init('bak3sl/gainvest2');
 
 
 const App: React.FC = () => (
@@ -46,8 +48,8 @@ const App: React.FC = () => (
 					{/* <Route path="/home" component={Home} exact={true} /> */}
 					<Route path="/dashboard" component={Dashboard} exact={true} />
 					<Route path="/signup" component={SignUp} exact={true} />
-					<Route path="/forgotpass" component={ForgotPassword} exact={true} />
-					<Route path="/profile" component={Profile} exact={true} />
+					{/* <Route path="/forgotpass" component={ForgotPassword} exact={true} />
+					<Route path="/profile" component={Profile} exact={true} /> */}
 					<Route path="/intro" component={Intro} exact={true} />
 					<Route path="/documents" component={Details} exact={true} />
 					<Route path="/funds" component={Funds} exact={true} />

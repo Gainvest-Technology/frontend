@@ -112,7 +112,6 @@ const SignUp: React.FC = () => {
 	}
 
 	return (
-		<IonApp>
 			<IonPage>
 				<IonContent class="space-bg" fullscreen>
 					<IonRow>
@@ -197,7 +196,6 @@ const SignUp: React.FC = () => {
 					</IonToolbar>
 				</IonFooter>
 			</IonPage>
-		</IonApp>
 	);
 };
 
