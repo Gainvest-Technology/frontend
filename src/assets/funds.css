@@ -1,0 +1,11 @@
+.back {
+    background-image: linear-gradient(to bottom, #22313F, #F4F4F4);
+    height: 100%;
+    margin: -20px;
+}
+
+
+.funds, .home, .chat, .portfolio {
+    color: #ffffff;
+
+}

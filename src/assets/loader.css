@@ -1,0 +1,11 @@
+.loader {
+    height: 50px;
+    width: 50px;
+    color: red;
+    top: 50%;
+    left: 50%;
+}
+
+.content {
+    background: #000;
+}
