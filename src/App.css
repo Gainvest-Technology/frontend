@@ -1,0 +1,12 @@
+.bottom-drawer {
+    position: absolute;
+    right: 4px;
+    left: 4px;
+    bottom: -380px;
+    height: 400px;
+    border-radius: 30px;
+  }
+
+  .tabby {
+    --background: #000026;
+  }

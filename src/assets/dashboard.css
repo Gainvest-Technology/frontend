@@ -1,0 +1,32 @@
+.back {
+    background-image: linear-gradient(to bottom, #22313F, #F4F4F4);
+    height: 100%;
+    margin: -20px;
+}
+
+h1 {
+    color: #fff;
+    padding-top:10px;
+}
+
+h3 {
+    color: #fff;
+}
+
+h5 {
+    color: #fff;
+}
+
+.funds, .chat, .portfolio {
+    color: #ffffff;
+
+}
+
+.home {
+   color: red;
+}
+
+
+
+
+

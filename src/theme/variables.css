@@ -191,7 +191,7 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-toolbar-background: #0d0d0d;
 
-    --ion-item-background: #000000;
+    --ion-item-background: #e6e6e6;
 
     --ion-card-background: #1c1c1d;
   }
@@ -206,7 +206,7 @@ http://ionicframework.com/docs/theming/ */
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
 
-    --ion-text-color: #ffffff;
+    --ion-text-color: #e6e6e6;
     --ion-text-color-rgb: 255,255,255;
 
     --ion-border-color: #222222;
@@ -239,4 +239,8 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-card-background: #1e1e1e;
   }
+}
+
+.popover-content {
+	--width: 320px;
 }

@@ -24,6 +24,9 @@ export const Menu = () => {
 				<IonList>
 					<IonMenuToggle auto-hide="false" />
 					<IonMenuToggle auto-hide="false">
+						<IonItem button routerLink={'/home'} routerDirection="none">
+							<IonLabel>Home</IonLabel>
+						</IonItem>
 						<IonItem button routerLink={'/portal'} routerDirection="none">
 							<IonLabel>Portal</IonLabel>
 						</IonItem>
