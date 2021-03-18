@@ -73,7 +73,8 @@ const Dashboard: React.FC = (props: any) => {
             //const investor = 'Andre Harewood';
 
             const api = axios.create({
-                baseURL: 'https://gainvest-api.com'
+                 baseURL: 'https://gainvest-api.com'
+                //baseURL: 'http://localhost:3000'
             });
             api.get(`/capitals/investor/${investor}`).then((response) => {
                 let total_amount: number = 0.0;
@@ -129,102 +130,101 @@ const Dashboard: React.FC = (props: any) => {
     }
 
 	return (
-
-            <IonPage>
-                <Header/>
-                <IonContent className="light">
-                    <h1 className="h1">Gainvestor Snapshot</h1>
-                    <IonGrid>
-                        <IonRow className='box-shadow' style={{ margin:'0px 20px 20px 20px' }}>
-                            <IonCol>
-                                <div className="flex-container" style={{ height: '100px', margin:'20px', alignItems:'center' }}>
-                                    <IonAvatar style={{ flex: '1', height: '80px', maxWidth: '80px'}}>
-                                        <img src={pageData.avatar}/>
-                                    </IonAvatar>
-                                    <div className="banner" style={{ flex: '3', marginLeft:'20px'}}>
-                                        <h3>
-                                            {pageData.firstName + ' ' + pageData.lastName}
-                                        </h3>
-                                        <h5>
-                                            {pageData.email}
-                                        </h5>
-                                    </div>
+        <IonPage>
+            <Header/>
+            <IonContent className="light">
+                <h1 className="h1">Gainvestor Snapshot</h1>
+                <IonGrid>
+                    <IonRow className='box-shadow' style={{ margin:'0px 20px 20px 20px' }}>
+                        <IonCol>
+                            <div className="flex-container" style={{ height: '100px', margin:'20px', alignItems:'center' }}>
+                                <IonAvatar style={{ flex: '1', height: '80px', maxWidth: '80px'}}>
+                                    <img src={pageData.avatar}/>
+                                </IonAvatar>
+                                <div className="banner" style={{ flex: '3', marginLeft:'20px'}}>
+                                    <h3>
+                                        {pageData.firstName + ' ' + pageData.lastName}
+                                    </h3>
+                                    <h5>
+                                        {pageData.email}
+                                    </h5>
                                 </div>
-                                <div className="flex-container">
-                                    <div className="flex-child">
-                                        <IonCard className="card">
-                                            <IonCardHeader className="card-header" style={{ background: '#ff0000'}}>
-                                                0
-                                            </IonCardHeader>
-                                            <IonCardContent className="card-content">
-                                                Gainvest Score
-                                            </IonCardContent>
-                                        </IonCard>
-                                    </div>
-                                    <div className="flex-child">
-                                        <IonCard className="card">
-                                            <IonCardHeader className="level">
-                                                Beginner
-                                            </IonCardHeader>
-                                            <IonCardContent className="card-content">
-                                                Gainvestor Level
-                                            </IonCardContent>
-                                        </IonCard>
-                                    </div>
+                            </div>
+                            <div className="flex-container">
+                                <div className="flex-child">
+                                    <IonCard className="card">
+                                        <IonCardHeader className="card-header" style={{ background: '#ff0000'}}>
+                                            0
+                                        </IonCardHeader>
+                                        <IonCardContent className="card-content">
+                                            Gainvest Score
+                                        </IonCardContent>
+                                    </IonCard>
                                 </div>
-                            </IonCol>
-                        </IonRow>
-                        <IonRow>
-                            <IonCol className='stat-container'>
-                                <div className='stat-header'><IonIcon icon={logoUsd} style={{ position: 'relative', top: '3px' }}></IonIcon>{pageData.capitalAmount}</div>
-                                <div className='stat-label'>Total Amount Invested</div>
-                            </IonCol>
-                            <IonCol className='stat-container'>
-                                <div className='stat-header'><IonIcon icon={businessSharp} style={{ position: 'relative', top: '2px', left: '-5px' }}></IonIcon>{pageData.fundCount}</div>
-                                <div className='stat-label'>Total Funds Invested</div>
-                            </IonCol>
-                        </IonRow>
-                        <IonRow>
-                            <IonCol className='stat-container'>
-                                <div className='stat-header'><IonIcon icon={peopleSharp} style={{ position: 'relative', top: '3px', left: '-5px'  }}></IonIcon>0</div>
-                                <div className='stat-label'>Gainvestor Interactions</div>
-                            </IonCol>
-                            <IonCol className='stat-container'>
-                                <div className='stat-header'><IonIcon icon={calendarSharp} style={{ position: 'relative', top: '3px', left: '-5px'  }}></IonIcon>1</div>
-                                <div className='stat-label'>Days As A Gainvestor</div>
-                            </IonCol>
-                        </IonRow>
-                    </IonGrid>
-                </IonContent>
-                <IonToolbar slot="bottom" className="menu-tabs" >
-                    <IonRow>
-                        <IonCol className="nav-toolbar-item" onClick={() => { navigate('/dashboard') }}>
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
-                                <IonIcon style={{ flex: '1'}} icon={homeSharp} />
+                                <div className="flex-child">
+                                    <IonCard className="card">
+                                        <IonCardHeader className="level">
+                                            Beginner
+                                        </IonCardHeader>
+                                        <IonCardContent className="card-content">
+                                            Gainvestor Level
+                                        </IonCardContent>
+                                    </IonCard>
+                                </div>
                             </div>
-                            <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Home</IonLabel>                                    
-                        </IonCol>
-                        <IonCol className="nav-toolbar-item" onClick={() => { navigate('/chat') }}>
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
-                                <IonIcon style={{ flex: '1'}} icon={chatboxEllipsesSharp} />
-                            </div>
-                            <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Chat</IonLabel>
-                        </IonCol>
-                        <IonCol className="nav-toolbar-item" onClick={() => { navigate('/documents') }}>
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
-                                <IonIcon style={{ flex: '1'}} icon={documentsSharp} />
-                            </div>
-                            <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Portfolio</IonLabel>
-                        </IonCol>
-                        <IonCol className="nav-toolbar-item" onClick={() => { navigate('/funds') }}>
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
-                                <IonIcon style={{ flex: '1'}} icon={businessSharp} />
-                            </div>
-                            <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Funds</IonLabel>
                         </IonCol>
                     </IonRow>
-                </IonToolbar>
-            </IonPage>
+                    <IonRow>
+                        <IonCol className='stat-container'>
+                            <div className='stat-header'><IonIcon icon={logoUsd} style={{ position: 'relative', top: '3px' }}></IonIcon>{pageData.capitalAmount}</div>
+                            <div className='stat-label'>Total Amount Invested</div>
+                        </IonCol>
+                        <IonCol className='stat-container'>
+                            <div className='stat-header'><IonIcon icon={businessSharp} style={{ position: 'relative', top: '2px', left: '-5px' }}></IonIcon>{pageData.fundCount}</div>
+                            <div className='stat-label'>Total Funds Invested</div>
+                        </IonCol>
+                    </IonRow>
+                    <IonRow>
+                        <IonCol className='stat-container'>
+                            <div className='stat-header'><IonIcon icon={peopleSharp} style={{ position: 'relative', top: '3px', left: '-5px'  }}></IonIcon>0</div>
+                            <div className='stat-label'>Gainvestor Interactions</div>
+                        </IonCol>
+                        <IonCol className='stat-container'>
+                            <div className='stat-header'><IonIcon icon={calendarSharp} style={{ position: 'relative', top: '3px', left: '-5px'  }}></IonIcon>1</div>
+                            <div className='stat-label'>Days As A Gainvestor</div>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+            </IonContent>
+            <IonToolbar slot="bottom" className="menu-tabs" >
+                <IonRow>
+                    <IonCol className="nav-toolbar-item" onClick={() => { navigate('/dashboard') }}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <IonIcon style={{ flex: '1'}} icon={homeSharp} />
+                        </div>
+                        <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Home</IonLabel>                                    
+                    </IonCol>
+                    <IonCol className="nav-toolbar-item" onClick={() => { navigate('/chat') }}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <IonIcon style={{ flex: '1'}} icon={chatboxEllipsesSharp} />
+                        </div>
+                        <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Chat</IonLabel>
+                    </IonCol>
+                    <IonCol className="nav-toolbar-item" onClick={() => { navigate('/documents') }}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <IonIcon style={{ flex: '1'}} icon={documentsSharp} />
+                        </div>
+                        <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Portfolio</IonLabel>
+                    </IonCol>
+                    <IonCol className="nav-toolbar-item" onClick={() => { navigate('/funds') }}>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <IonIcon style={{ flex: '1'}} icon={businessSharp} />
+                        </div>
+                        <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Funds</IonLabel>
+                    </IonCol>
+                </IonRow>
+            </IonToolbar>
+        </IonPage>
 	);
 };
 

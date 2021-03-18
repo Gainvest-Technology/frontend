@@ -5,7 +5,6 @@ import {
 	IonCol,
 	IonAlert,
 	IonPage,
-	IonToolbar,
 	IonButton,
 	IonItem,
 	IonLabel,
@@ -16,7 +15,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-const SignUp: React.FC = () => {
+const NewPassword: React.FC = (props: any) => {
 	const history = useHistory();
 	const [ firstName, setFirstName ] = useState<string>();
 	const [ lastName, setLastName ] = useState<string>();
@@ -28,26 +27,8 @@ const SignUp: React.FC = () => {
 	const [ message, setMessage ] = useState<string>('');
 	const [ userData, setUserData ] = useState<any>({});
 
-	function validateEmail(email: string) {
-		const regexp = new RegExp(
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		);
-		return regexp.test(String(email).toLowerCase());
-	}
-
-	const handleRegister = async (event: { preventDefault: () => void }) => {
-		if (!email) {
-			setMessage('Please enter a valid email');
-			setIserror(true);
-			return;
-		}
-		if (validateEmail(email) === false) {
-			setMessage('Your email is invalid');
-			setIserror(true);
-			return;
-		}
-
-		if (!password || password.length < 6) {
+	const handleUpdate = async (event: { preventDefault: () => void }) => {
+		if (!password) {
 			setMessage('Please enter your password');
 			setIserror(true);
 			return;
@@ -59,11 +40,8 @@ const SignUp: React.FC = () => {
 			return;
 		}
 
-		
 		const signUpData = {
-			first_name: firstName,
-			last_name: lastName,
-			email: email,
+			email: props.location.state.data.email,
 			password: password,
 		};
 
@@ -73,7 +51,7 @@ const SignUp: React.FC = () => {
 		});
 
 		api
-			.post('/signup', signUpData)
+			.post('/users/update_password', signUpData)
 			.then((response) => {
 				setUserData({
 					token: response.data.token,
@@ -85,7 +63,7 @@ const SignUp: React.FC = () => {
 					chatApiKey: response.data.chatApiKey,
 					chatId: response.data.chatId
 				})
-				setMessage('Account Created Successfully');
+				setMessage('Password Changed Successfully');
 				setAccountCreated(true);
 			})
 			.catch((error) => {
@@ -136,22 +114,8 @@ const SignUp: React.FC = () => {
 						</IonCol>
 					</IonRow>
 					<form className="ion-padding form">
-						<IonItem class="login-input">
-							<IonLabel position="floating">First Name</IonLabel>
-							<IonInput
-								type="text"
-								value={firstName}
-								onIonChange={(e) => setFirstName(e.detail.value!)}
-							/>
-						</IonItem>
-						<IonItem class="login-input">
-							<IonLabel position="floating">Last Name</IonLabel>
-							<IonInput type="text" value={lastName} onIonChange={(e) => setLastName(e.detail.value!)} />
-						</IonItem>
-						<IonItem class="login-input">
-							<IonLabel position="floating">Email</IonLabel>
-							<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
-						</IonItem>
+                        <h2 style={{ color: '#212326', textAlign: 'center' }}>Welcome Back!</h2>
+                        <p style={{ color: '#212326', textAlign: 'center' }}>Please Confirm Your Password For The New Gainvest Experience </p>
 						<IonItem class="login-input">
 							<IonLabel position="floating">Password</IonLabel>
 							<IonInput
@@ -170,27 +134,27 @@ const SignUp: React.FC = () => {
 								id="confirm"
 							/>
 						</IonItem>
-						<IonButton className="ion-margin-top" onClick={handleRegister} expand="block">
-							Register
+						<IonButton className="ion-margin-top" onClick={handleUpdate} expand="block">
+							Update
 						</IonButton>
 					</form>
 					<IonRow>
 						<IonCol>
 							<p style={{ fontSize: 'medium', textAlign: 'center' }}>
-								Already have an account? <a href="/portal">Sign In!</a>
+								Already have an account? <a href="/">Sign In!</a>
 							</p>
 						</IonCol>
 					</IonRow>
 				</IonContent>
 				<IonFooter>
-					<IonToolbar color="dark">
+					{/* <IonToolbar color="dark">
 						<p style={{ fontSize: 'medium', textAlign: 'center' }}>Gainvest Holdings LLC</p>
-					</IonToolbar>
+					</IonToolbar> */}
 				</IonFooter>
 			</IonPage>
 	);
 };
 
-export default SignUp;
+export default NewPassword;
 
 

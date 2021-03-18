@@ -7,7 +7,6 @@ import {
 	IonContent,
 	IonPage,
 	IonToolbar,
-	IonApp,
 	IonRow,
 	IonCol,
 	IonIcon,
@@ -52,6 +51,32 @@ const GainvestChat: React.FC = (props: any) => {
 					token
 				);
 
+				//const chatChannel = chatClient.channel('messaging', 'GainvestChatPreview');
+				
+
+				// let channel = chatClient.channel('messaging', 'PublicGeneral', { 
+				// 	name: 'General', 
+				// 	created_by_id: 'clizzy12'
+				// });
+			  
+				// channel.watch((state: any) => {
+					
+				// });
+
+				// chatClient.channel('messaging', 'GainvestChatAccredited').watch().then(() => {
+				// 	this.hide();
+				// });
+
+				// chatClient.channel('messaging', 'GainvestChatPreview').watch().then(() => {
+				// 	this.hide();
+				// });
+
+				// await channel.hide();
+
+				// channel = chatClient.channel('messaging', 'GainvestChatPreview');
+
+				// await channel.hide();
+
 				const chatComponent = <Chat client={chatClient} theme={chatStyle}>
 	 					<ChannelList filters={filters}/>
 	 					<Channel>
@@ -72,6 +97,10 @@ const GainvestChat: React.FC = (props: any) => {
 			initChat();
 		}
 	},[props]);
+
+	async function createPrivateChannel(){
+
+	}
 
 
 	
@@ -164,7 +193,7 @@ const GainvestChat: React.FC = (props: any) => {
 	
 	return(
 			<IonPage>
-				<IonContent>
+				<IonContent style={{ position: 'absolute'}}>
 					<Header/>
 					{/* {!chat && 
 						<IonSlides style={{ height: '100%', backgroundColor: '#0b0d70', color: '#ededed	'}} pager={true} options={slideOpts}>
@@ -200,7 +229,7 @@ const GainvestChat: React.FC = (props: any) => {
 						{/* {pageData.chatComponent} */}
 					{chatComponent}
 				</IonContent>
-				<IonToolbar slot="bottom" className="menu-tabs" >
+				<IonToolbar slot="bottom" className="menu-tabs" style={{ position: 'fixed', bottom: '0' }} >
 					<IonRow>
 						<IonCol className="nav-toolbar-item" onClick={() => { navigate('/dashboard') }}>
 							<div style={{ display: 'flex', alignItems: 'center'}}>

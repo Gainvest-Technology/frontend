@@ -1,21 +1,7 @@
 import React, { useEffect, useState, } from 'react';
 import {
-	IonApp,
-	IonButtons,
 	IonContent,
-	IonRow,
-	IonCol,
-	IonAlert,
-	IonHeader,
-	IonPage,
-	IonTitle,
-	IonToolbar,
-	IonButton,
-	IonItem,
-	IonLabel,
-	IonInput,
-	IonFooter,
-	IonIcon
+	IonPage
 } from '@ionic/react';
 import { useHistory } from 'react-router';
 
@@ -56,16 +42,14 @@ const Intro: React.FC = (props: any) => {
     }
 
 	return (
-
-			<IonPage>
-				<IonContent fullscreen>
-                    <video id="myVideo" width="100%" height="100%" autoPlay onEnded={goHome}>
-                        <source src="https://gainvestco.s3.us-east-2.amazonaws.com/IntroGainvest.m4v" type="video/mp4"></source>
-                        Your browser does not support HTML5 video.
-                    </video>
-				</IonContent>
-			</IonPage>
-
+		<IonPage>
+			<IonContent fullscreen>
+				<video id="myVideo" width="100%" height="100%" autoPlay onEnded={goHome}>
+					<source src="https://gainvestco.s3.us-east-2.amazonaws.com/IntroGainvest.m4v" type="video/mp4"></source>
+					Your browser does not support HTML5 video.
+				</video>
+			</IonContent>
+		</IonPage>
 	);
 };
 

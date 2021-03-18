@@ -245,3 +245,11 @@
   background: #ededed;
   color: #212326;
 }
+
+.str-chat__header-livestream-left, .str-chat__textarea__textarea {
+  color: #212326;
+}
+
+.str-chat {
+  height: 83vh !important;
+}

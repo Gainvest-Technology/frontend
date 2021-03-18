@@ -19,7 +19,6 @@ require("@ionic/react/css/flex-utils.css");
 require("@ionic/react/css/display.css");
 /* Theme variables */
 require("./theme/variables.css");
-//import Home from './pages/Home';
 var Portal_1 = require("./pages/Portal");
 var SignUp_1 = require("./pages/SignUp");
 var Chat_1 = require("./pages/Chat");
@@ -27,9 +26,10 @@ var Intro_1 = require("./pages/Intro");
 var Dashboard_1 = require("./pages/Dashboard");
 var Details_1 = require("./pages/Details");
 var Funds_1 = require("./pages/Funds");
+var NewPassword_1 = require("./pages/NewPassword");
 // import { UserContext } from './contexts/UserContext'
-var logrocket_1 = require("logrocket");
-logrocket_1["default"].init('bak3sl/gainvest2');
+// import LogRocket from 'logrocket';
+// LogRocket.init('bak3sl/gainvest2');
 var App = function () { return (
 // <UserContext.Provider value={UserInfo}>
 react_1["default"].createElement(react_2.IonApp, null,
@@ -42,6 +42,7 @@ react_1["default"].createElement(react_2.IonApp, null,
             react_1["default"].createElement(react_router_dom_1.Route, { path: "/intro", component: Intro_1["default"], exact: true }),
             react_1["default"].createElement(react_router_dom_1.Route, { path: "/documents", component: Details_1["default"], exact: true }),
             react_1["default"].createElement(react_router_dom_1.Route, { path: "/funds", component: Funds_1["default"], exact: true }),
+            react_1["default"].createElement(react_router_dom_1.Route, { path: "/new_password", component: NewPassword_1["default"], exact: true }),
             react_1["default"].createElement(react_router_dom_1.Route, { render: function () { return react_1["default"].createElement(react_router_dom_1.Redirect, { to: "/" }); } }))))
 // </UserContext.Provider>
 // 	<userContext.Consumer>

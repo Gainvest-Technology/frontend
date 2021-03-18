@@ -91,6 +91,13 @@ var GainvestChat = function (props) {
             initChat();
         }
     }, [props]);
+    function createPrivateChannel() {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    }
     // useEffect(() => {
     // 	if (props.location.state) {
     // 		// if (!props.location.state.data.id) {
@@ -163,10 +170,10 @@ var GainvestChat = function (props) {
     // 	}
     // }
     return (react_1["default"].createElement(react_2.IonPage, null,
-        react_1["default"].createElement(react_2.IonContent, null,
+        react_1["default"].createElement(react_2.IonContent, { style: { position: 'absolute' } },
             react_1["default"].createElement(Header_1.Header, null),
             chatComponent),
-        react_1["default"].createElement(react_2.IonToolbar, { slot: "bottom", className: "menu-tabs" },
+        react_1["default"].createElement(react_2.IonToolbar, { slot: "bottom", className: "menu-tabs", style: { position: 'fixed', bottom: '0' } },
             react_1["default"].createElement(react_2.IonRow, null,
                 react_1["default"].createElement(react_2.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/dashboard'); } },
                     react_1["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },

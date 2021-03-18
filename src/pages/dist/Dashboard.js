@@ -51,6 +51,7 @@ var Dashboard = function (props) {
             //const investor = 'Andre Harewood';
             var api = axios_1["default"].create({
                 baseURL: 'https://gainvest-api.com'
+                //baseURL: 'http://localhost:3000'
             });
             api.get("/capitals/investor/" + investor).then(function (response) {
                 var total_amount = 0.0;
