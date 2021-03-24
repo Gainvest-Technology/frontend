@@ -70,7 +70,6 @@ const Dashboard: React.FC = (props: any) => {
             setAvatar('https://getstream.io/random_svg/?name=' + firstName);
 
             const investor = firstName + ' ' + lastName;
-            //const investor = 'Andre Harewood';
 
             const api = axios.create({
                  baseURL: 'https://gainvest-api.com'
@@ -138,7 +137,7 @@ const Dashboard: React.FC = (props: any) => {
                     <IonRow className='box-shadow' style={{ margin:'0px 20px 20px 20px' }}>
                         <IonCol>
                             <div className="flex-container" style={{ height: '100px', margin:'20px', alignItems:'center' }}>
-                                <IonAvatar style={{ flex: '1', height: '80px', maxWidth: '80px'}}>
+                                <IonAvatar style={{ flex: '1', height: '75px', maxWidth: '80px'}}>
                                     <img src={pageData.avatar}/>
                                 </IonAvatar>
                                 <div className="banner" style={{ flex: '3', marginLeft:'20px'}}>
@@ -150,7 +149,7 @@ const Dashboard: React.FC = (props: any) => {
                                     </h5>
                                 </div>
                             </div>
-                            <div className="flex-container">
+                            {/* <div className="flex-container">
                                 <div className="flex-child">
                                     <IonCard className="card">
                                         <IonCardHeader className="card-header" style={{ background: '#ff0000'}}>
@@ -171,7 +170,7 @@ const Dashboard: React.FC = (props: any) => {
                                         </IonCardContent>
                                     </IonCard>
                                 </div>
-                            </div>
+                            </div> */}
                         </IonCol>
                     </IonRow>
                     <IonRow>

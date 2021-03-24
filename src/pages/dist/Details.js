@@ -83,12 +83,12 @@ var Details = function (props) {
         });
         //}       
     }
-    function getCapital(name, callback) {
+    function getCapital(id, callback) {
         var api = axios_1["default"].create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
-        api.get("/capitals/investor/" + name)
+        api.get("/capitals/investor/" + id)
             .then(function (response) {
             var total_funds = {};
             response.data.map(function (item) {
@@ -121,15 +121,15 @@ var Details = function (props) {
                     }
                 }
             });
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
-    function getFundShares(total_funds, name, callback) {
+    function getFundShares(total_funds, id, callback) {
         var api = axios_1["default"].create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
-        api.get("/documents/investor/" + name)
+        api.get("/documents/investor/" + id)
             .then(function (response) {
             response.data.map(function (item) {
                 if (item.fund_name) {
@@ -158,15 +158,15 @@ var Details = function (props) {
                     }
                 }
             });
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
-    function getDocuments(total_funds, name, callback) {
+    function getDocuments(total_funds, id, callback) {
         var api = axios_1["default"].create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
-        api.get("/fund-shares/investor/" + name)
+        api.get("/fund-shares/investor/" + id)
             .then(function (response) {
             response.data.map(function (item) {
                 if (item.fund_name) {
@@ -205,10 +205,10 @@ var Details = function (props) {
         if (props.location.state) {
             var firstName = props.location.state.data.firstName;
             var lastName = props.location.state.data.lastName;
-            var name = firstName + ' ' + lastName;
+            var id = props.location.state.data.id;
             //const name = "Andre Harewood";
             async_1["default"].waterfall([
-                async_1["default"].constant(name),
+                async_1["default"].constant(id),
                 getCapital,
                 getFundShares,
                 getDocuments,

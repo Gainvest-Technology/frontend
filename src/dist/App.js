@@ -17,6 +17,7 @@ require("@ionic/react/css/text-alignment.css");
 require("@ionic/react/css/text-transformation.css");
 require("@ionic/react/css/flex-utils.css");
 require("@ionic/react/css/display.css");
+require("./assets/gainvest.css");
 /* Theme variables */
 require("./theme/variables.css");
 var Portal_1 = require("./pages/Portal");

@@ -1,5 +1,13 @@
-.space-bg {
-    --background: #fff url("./galaxy.jpg") no-repeat center center / cover;
+.ion-page {
+  background: #fff url("./galaxy.jpg") no-repeat center center / cover;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+#main {
+  max-width: 600px;
+  margin: 20px auto 20px auto;
+  border-radius: 10px;
 }
 
 .logo {
@@ -251,5 +259,10 @@
 }
 
 .str-chat {
-  height: 83vh !important;
+  height: 77vh !important;
+}
+
+.str-chat-channel-list--open.messaging {
+  margin-top: 4px;
+  margin-left: 4px;
 }

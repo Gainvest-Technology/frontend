@@ -4,7 +4,6 @@ import {
     IonIcon,
     IonRow,
     IonCol,
-    IonApp,
     IonSelect,
     IonSelectOption,
     IonItem,
@@ -108,13 +107,13 @@ const Details: React.FC = (props: any) => {
         //}       
     }
 
-    function getCapital(name:string, callback:any) {
+    function getCapital(id:string, callback:any) {
         const api = axios.create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
 
-        api.get(`/capitals/investor/${name}`)
+        api.get(`/capitals/investor/${id}`)
         .then((response) => {
             let total_funds: any = {};
 
@@ -147,17 +146,17 @@ const Details: React.FC = (props: any) => {
                 }
             });
             
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
 
-    function getFundShares(total_funds:any, name:string, callback:any) {
+    function getFundShares(total_funds:any, id:string, callback:any) {
         const api = axios.create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
 
-        api.get(`/documents/investor/${name}`)
+        api.get(`/documents/investor/${id}`)
         .then((response) => { 
             response.data.map((item: any) => {
                 if (item.fund_name) {
@@ -185,17 +184,17 @@ const Details: React.FC = (props: any) => {
                 }
             });
 
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
 
-    function getDocuments(total_funds:any, name:string, callback:any) {
+    function getDocuments(total_funds:any, id:string, callback:any) {
         const api = axios.create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
 
-        api.get(`/fund-shares/investor/${name}`)
+        api.get(`/fund-shares/investor/${id}`)
         .then((response) => { 
             response.data.map((item: any) => {
                 if (item.fund_name) {
@@ -234,11 +233,11 @@ const Details: React.FC = (props: any) => {
         if (props.location.state) {
             const firstName = props.location.state.data.firstName;
 			const lastName = props.location.state.data.lastName;
-            const name = firstName + ' ' + lastName;
+            const id = props.location.state.data.id;
             //const name = "Andre Harewood";
 
             async.waterfall([
-                async.constant(name),
+                async.constant(id),
                 getCapital,
                 getFundShares,
                 getDocuments,
