@@ -182,11 +182,6 @@ const SignUp: React.FC = () => {
 						</IonCol>
 					</IonRow>
 				</IonContent>
-				<IonFooter>
-					<IonToolbar color="dark">
-						<p style={{ fontSize: 'medium', textAlign: 'center' }}>Gainvest Holdings LLC</p>
-					</IonToolbar>
-				</IonFooter>
 			</IonPage>
 	);
 };

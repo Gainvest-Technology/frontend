@@ -13,7 +13,6 @@ import {
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import '../assets/gainvest.css';
 import { UserContext } from '../contexts/UserContext';
 
 
@@ -97,7 +96,7 @@ const Portal: React.FC = () => {
 
 	return (
 		<IonPage>
-			<IonContent class="space-bg" fullscreen>
+			<IonContent className="space-bg" fullscreen>
 				<IonRow>
 					<IonCol>
 						<IonAlert

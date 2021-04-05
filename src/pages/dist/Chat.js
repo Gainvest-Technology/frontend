@@ -187,9 +187,9 @@ var GainvestChat = function (props) {
                     react_1["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
                         react_1["default"].createElement(react_2.IonIcon, { style: { flex: '1' }, icon: icons_1.documentsSharp })),
                     react_1["default"].createElement(react_2.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Portfolio")),
-                react_1["default"].createElement(react_2.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/funds'); } },
+                react_1["default"].createElement(react_2.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/menu'); } },
                     react_1["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
-                        react_1["default"].createElement(react_2.IonIcon, { style: { flex: '1' }, icon: icons_1.businessSharp })),
-                    react_1["default"].createElement(react_2.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Funds"))))));
+                        react_1["default"].createElement(react_2.IonIcon, { style: { flex: '1' }, icon: icons_1.gridOutline })),
+                    react_1["default"].createElement(react_2.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Menu"))))));
 };
 exports["default"] = GainvestChat;

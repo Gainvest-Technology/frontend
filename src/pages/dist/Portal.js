@@ -40,7 +40,6 @@ var react_1 = require("@ionic/react");
 var react_2 = require("react");
 var react_router_dom_1 = require("react-router-dom");
 var axios_1 = require("axios");
-require("../assets/gainvest.css");
 var Portal = function () {
     var history = react_router_dom_1.useHistory();
     var _a = react_2.useState(''), email = _a[0], setEmail = _a[1];
@@ -115,7 +114,7 @@ var Portal = function () {
         });
     }); };
     return (react_2["default"].createElement(react_1.IonPage, null,
-        react_2["default"].createElement(react_1.IonContent, { "class": "space-bg", fullscreen: true },
+        react_2["default"].createElement(react_1.IonContent, { className: "space-bg", fullscreen: true },
             react_2["default"].createElement(react_1.IonRow, null,
                 react_2["default"].createElement(react_1.IonCol, null,
                     react_2["default"].createElement(react_1.IonAlert, { isOpen: iserror, onDidDismiss: function () { return setIserror(false); }, cssClass: "my-custom-class", header: 'Error!', message: message, buttons: ['Dismiss'] }))),

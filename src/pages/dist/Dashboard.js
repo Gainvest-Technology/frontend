@@ -146,9 +146,9 @@ var Dashboard = function (props) {
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
                         react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.documentsSharp })),
                     react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Portfolio")),
-                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/funds'); } },
+                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/menu'); } },
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
-                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.businessSharp })),
-                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Funds"))))));
+                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.gridOutline })),
+                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Menu"))))));
 };
 exports["default"] = Dashboard;

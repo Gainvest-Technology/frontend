@@ -5,16 +5,12 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonApp,
     IonAvatar,
     IonLabel,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
     IonToolbar
 } from '@ionic/react';
 import React, { useContext, useEffect, useState } from 'react';
-import { logoUsd, businessSharp, peopleSharp, calendarSharp, homeSharp, chatboxEllipsesSharp, documentsSharp } from 'ionicons/icons';
+import { logoUsd, businessSharp, peopleSharp, calendarSharp, homeSharp, chatboxEllipsesSharp, documentsSharp, gridOutline } from 'ionicons/icons';
 import { Header }  from '../components/Header';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -215,11 +211,11 @@ const Dashboard: React.FC = (props: any) => {
                         </div>
                         <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Portfolio</IonLabel>
                     </IonCol>
-                    <IonCol className="nav-toolbar-item" onClick={() => { navigate('/funds') }}>
+                    <IonCol className="nav-toolbar-item" onClick={() => { navigate('/menu') }}>
                         <div style={{ display: 'flex', alignItems: 'center'}}>
-                            <IonIcon style={{ flex: '1'}} icon={businessSharp} />
+                            <IonIcon style={{ flex: '1'}} icon={gridOutline} />
                         </div>
-                        <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Funds</IonLabel>
+                        <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Menu</IonLabel>
                     </IonCol>
                 </IonRow>
             </IonToolbar>

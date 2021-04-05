@@ -30,6 +30,7 @@ import Dashboard from './pages/Dashboard';
 import Details from './pages/Details';
 import Funds from './pages/Funds';
 import NewPassword from './pages/NewPassword';
+import Menu from './pages/Menu';
 // import { UserContext } from './contexts/UserContext'
 
 // import LogRocket from 'logrocket';
@@ -49,6 +50,7 @@ const App: React.FC = () => (
 					<Route path="/documents" component={Details} exact={true} />
 					<Route path="/funds" component={Funds} exact={true} />
 					<Route path="/new_password" component={NewPassword} exact={true} />
+					<Route path="/menu" component={Menu} exact={true} />
 					<Route render={() => <Redirect to="/" />} />
 				</IonRouterOutlet>
 			</IonReactRouter>

@@ -150,9 +150,6 @@ var SignUp = function () {
                 react_1["default"].createElement(react_2.IonCol, null,
                     react_1["default"].createElement("p", { style: { fontSize: 'medium', textAlign: 'center' } },
                         "Already have an account? ",
-                        react_1["default"].createElement("a", { href: "/portal" }, "Sign In!"))))),
-        react_1["default"].createElement(react_2.IonFooter, null,
-            react_1["default"].createElement(react_2.IonToolbar, { color: "dark" },
-                react_1["default"].createElement("p", { style: { fontSize: 'medium', textAlign: 'center' } }, "Gainvest Holdings LLC")))));
+                        react_1["default"].createElement("a", { href: "/portal" }, "Sign In!")))))));
 };
 exports["default"] = SignUp;

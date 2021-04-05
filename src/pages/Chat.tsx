@@ -15,7 +15,7 @@ import {
 import 'stream-chat-react/dist/css/index.css';
 import { useHistory } from 'react-router-dom';
 import { Header }  from '../components/Header';
-import { businessSharp, chatboxEllipsesSharp, documentsSharp, homeSharp } from 'ionicons/icons';
+import { businessSharp, chatboxEllipsesSharp, documentsSharp, gridOutline, homeSharp } from 'ionicons/icons';
 //import async from 'async';
 
 const GainvestChat: React.FC = (props: any) => {
@@ -249,11 +249,11 @@ const GainvestChat: React.FC = (props: any) => {
 							</div>
 							<IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Portfolio</IonLabel>
 						</IonCol>
-						<IonCol className="nav-toolbar-item" onClick={() => { navigate('/funds') }}>
+						<IonCol className="nav-toolbar-item" onClick={() => { navigate('/menu') }}>
 							<div style={{ display: 'flex', alignItems: 'center'}}>
-								<IonIcon style={{ flex: '1'}} icon={businessSharp} />
+								<IonIcon style={{ flex: '1'}} icon={gridOutline} />
 							</div>
-							<IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Funds</IonLabel>
+							<IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Menu</IonLabel>
 						</IonCol>
 					</IonRow>
 				</IonToolbar>

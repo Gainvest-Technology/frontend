@@ -28,6 +28,7 @@ var Dashboard_1 = require("./pages/Dashboard");
 var Details_1 = require("./pages/Details");
 var Funds_1 = require("./pages/Funds");
 var NewPassword_1 = require("./pages/NewPassword");
+var Menu_1 = require("./pages/Menu");
 // import { UserContext } from './contexts/UserContext'
 // import LogRocket from 'logrocket';
 // LogRocket.init('bak3sl/gainvest2');
@@ -44,6 +45,7 @@ react_1["default"].createElement(react_2.IonApp, null,
             react_1["default"].createElement(react_router_dom_1.Route, { path: "/documents", component: Details_1["default"], exact: true }),
             react_1["default"].createElement(react_router_dom_1.Route, { path: "/funds", component: Funds_1["default"], exact: true }),
             react_1["default"].createElement(react_router_dom_1.Route, { path: "/new_password", component: NewPassword_1["default"], exact: true }),
+            react_1["default"].createElement(react_router_dom_1.Route, { path: "/menu", component: Menu_1["default"], exact: true }),
             react_1["default"].createElement(react_router_dom_1.Route, { render: function () { return react_1["default"].createElement(react_router_dom_1.Redirect, { to: "/" }); } }))))
 // </UserContext.Provider>
 // 	<userContext.Consumer>
