@@ -6,7 +6,7 @@ var Header_1 = require("../components/Header");
 var axios_1 = require("axios");
 var react_router_dom_1 = require("react-router-dom");
 var icons_1 = require("ionicons/icons");
-var Dashboard = function (props) {
+var Funds = function (props) {
     var history = react_router_dom_1.useHistory();
     // const [ capital, setCapital ] = useState<number>(0.00);
     // const [ fundCount, setFundCount ] = useState<number>(0);
@@ -110,9 +110,9 @@ var Dashboard = function (props) {
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
                         react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.documentsSharp })),
                     react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Portfolio")),
-                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/funds'); } },
+                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/menu'); } },
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
-                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.businessSharp })),
-                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Funds"))))));
+                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.gridOutline })),
+                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Menu"))))));
 };
-exports["default"] = Dashboard;
+exports["default"] = Funds;

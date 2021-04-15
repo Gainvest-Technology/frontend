@@ -48,9 +48,9 @@ var Dashboard = function (props) {
             var chatApiKey = props.location.state.data.chatApiKey;
             setAvatar('https://getstream.io/random_svg/?name=' + firstName_1);
             var investor = firstName_1 + ' ' + lastName;
-            //const investor = 'Andre Harewood';
             var api = axios_1["default"].create({
                 baseURL: 'https://gainvest-api.com'
+                //baseURL: 'http://localhost:3000'
             });
             api.get("/capitals/investor/" + investor).then(function (response) {
                 var total_amount = 0.0;
@@ -105,20 +105,11 @@ var Dashboard = function (props) {
                 react_2["default"].createElement(react_1.IonRow, { className: 'box-shadow', style: { margin: '0px 20px 20px 20px' } },
                     react_2["default"].createElement(react_1.IonCol, null,
                         react_2["default"].createElement("div", { className: "flex-container", style: { height: '100px', margin: '20px', alignItems: 'center' } },
-                            react_2["default"].createElement(react_1.IonAvatar, { style: { flex: '1', height: '80px', maxWidth: '80px' } },
+                            react_2["default"].createElement(react_1.IonAvatar, { style: { flex: '1', height: '75px', maxWidth: '80px' } },
                                 react_2["default"].createElement("img", { src: pageData.avatar })),
                             react_2["default"].createElement("div", { className: "banner", style: { flex: '3', marginLeft: '20px' } },
                                 react_2["default"].createElement("h3", null, pageData.firstName + ' ' + pageData.lastName),
-                                react_2["default"].createElement("h5", null, pageData.email))),
-                        react_2["default"].createElement("div", { className: "flex-container" },
-                            react_2["default"].createElement("div", { className: "flex-child" },
-                                react_2["default"].createElement(react_1.IonCard, { className: "card" },
-                                    react_2["default"].createElement(react_1.IonCardHeader, { className: "card-header", style: { background: '#ff0000' } }, "0"),
-                                    react_2["default"].createElement(react_1.IonCardContent, { className: "card-content" }, "Gainvest Score"))),
-                            react_2["default"].createElement("div", { className: "flex-child" },
-                                react_2["default"].createElement(react_1.IonCard, { className: "card" },
-                                    react_2["default"].createElement(react_1.IonCardHeader, { className: "level" }, "Beginner"),
-                                    react_2["default"].createElement(react_1.IonCardContent, { className: "card-content" }, "Gainvestor Level")))))),
+                                react_2["default"].createElement("h5", null, pageData.email))))),
                 react_2["default"].createElement(react_1.IonRow, null,
                     react_2["default"].createElement(react_1.IonCol, { className: 'stat-container' },
                         react_2["default"].createElement("div", { className: 'stat-header' },
@@ -155,9 +146,9 @@ var Dashboard = function (props) {
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
                         react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.documentsSharp })),
                     react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Portfolio")),
-                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/funds'); } },
+                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/menu'); } },
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
-                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.businessSharp })),
-                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Funds"))))));
+                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.gridOutline })),
+                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Menu"))))));
 };
 exports["default"] = Dashboard;

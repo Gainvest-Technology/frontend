@@ -15,7 +15,7 @@ var Details = function (props) {
     // const [ allDocuments, setAllDocuments ] = useState<any>();
     // const [ detailsPage, setDetailsPage ] = useState<any>();
     // const [ userData, setUserData ] = useState<any>({});
-    // //const [ pageData, setPageData ] = useState<any>({});
+    // const [ pageData, setPageData ] = useState<any>({});
     // const [ pageContent, setPageContent ] = useState<any>({});
     // const [ showDetails, setShowDetails ] = useState<boolean>(false);
     // const [ fundData, setFundData ] = useState<boolean>(false);
@@ -83,12 +83,12 @@ var Details = function (props) {
         });
         //}       
     }
-    function getCapital(name, callback) {
+    function getCapital(id, callback) {
         var api = axios_1["default"].create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
-        api.get("/capitals/investor/" + name)
+        api.get("/capitals/investor/" + id)
             .then(function (response) {
             var total_funds = {};
             response.data.map(function (item) {
@@ -121,15 +121,15 @@ var Details = function (props) {
                     }
                 }
             });
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
-    function getFundShares(total_funds, name, callback) {
+    function getFundShares(total_funds, id, callback) {
         var api = axios_1["default"].create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
-        api.get("/documents/investor/" + name)
+        api.get("/documents/investor/" + id)
             .then(function (response) {
             response.data.map(function (item) {
                 if (item.fund_name) {
@@ -158,15 +158,15 @@ var Details = function (props) {
                     }
                 }
             });
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
-    function getDocuments(total_funds, name, callback) {
+    function getDocuments(total_funds, id, callback) {
         var api = axios_1["default"].create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
-        api.get("/fund-shares/investor/" + name)
+        api.get("/fund-shares/investor/" + id)
             .then(function (response) {
             response.data.map(function (item) {
                 if (item.fund_name) {
@@ -205,10 +205,10 @@ var Details = function (props) {
         if (props.location.state) {
             var firstName = props.location.state.data.firstName;
             var lastName = props.location.state.data.lastName;
-            var name = firstName + ' ' + lastName;
+            var id = props.location.state.data.id;
             //const name = "Andre Harewood";
             async_1["default"].waterfall([
-                async_1["default"].constant(name),
+                async_1["default"].constant(id),
                 getCapital,
                 getFundShares,
                 getDocuments,
@@ -241,8 +241,14 @@ var Details = function (props) {
         react_2["default"].createElement(Header_1.Header, null),
         react_2["default"].createElement(react_1.IonContent, { className: "light" },
             react_2["default"].createElement("h1", { style: { textAlign: 'center', marginBottom: '30px' } }, "Your Portfolio"),
-            react_2["default"].createElement(react_1.IonItem, { className: "select-label" },
-                react_2["default"].createElement(react_1.IonLabel, { className: "select-label" }, "Funds"),
+            react_2["default"].createElement(react_1.IonList, { className: "docs-list" },
+                react_2["default"].createElement(react_1.IonListHeader, null, "Legal")),
+            react_2["default"].createElement(react_1.IonList, { className: "docs-list" },
+                react_2["default"].createElement(react_1.IonListHeader, null, "Finance")),
+            react_2["default"].createElement(react_1.IonList, { className: "docs-list" },
+                react_2["default"].createElement(react_1.IonListHeader, null, "Accounting")),
+            react_2["default"].createElement(react_1.IonItem, { className: "select-label", style: { marginBottom: '30px' } },
+                react_2["default"].createElement(react_1.IonLabel, { className: "select-label" }, "My Funds"),
                 react_2["default"].createElement(react_1.IonSelect, { onIonChange: function (e) { return changeContent(e.detail.value); }, className: "select-label", interface: "popover" }, pageData.fundNames &&
                     pageData.fundNames.map(function (val, index) {
                         return react_2["default"].createElement(react_1.IonSelectOption, { className: "select-label", value: val }, val);
@@ -288,9 +294,9 @@ var Details = function (props) {
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
                         react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.documentsSharp })),
                     react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Portfolio")),
-                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/funds'); } },
+                react_2["default"].createElement(react_1.IonCol, { className: "nav-toolbar-item", onClick: function () { navigate('/menu'); } },
                     react_2["default"].createElement("div", { style: { display: 'flex', alignItems: 'center' } },
-                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.businessSharp })),
-                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Funds"))))));
+                        react_2["default"].createElement(react_1.IonIcon, { style: { flex: '1' }, icon: icons_1.gridOutline })),
+                    react_2["default"].createElement(react_1.IonLabel, { style: { display: 'block', textAlign: 'center', fontSize: '11px' } }, "Menu"))))));
 };
 exports["default"] = Details;

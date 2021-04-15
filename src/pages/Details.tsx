@@ -4,7 +4,6 @@ import {
     IonIcon,
     IonRow,
     IonCol,
-    IonApp,
     IonSelect,
     IonSelectOption,
     IonItem,
@@ -17,7 +16,7 @@ import React, { useEffect, useState } from 'react';
 import { Header }  from '../components/Header';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { businessSharp, chatboxEllipsesSharp, documentOutline, documentsSharp, homeSharp } from 'ionicons/icons';
+import { businessSharp, chatboxEllipsesSharp, documentOutline, documentsSharp, gridOutline, homeSharp } from 'ionicons/icons';
 import async from 'async';
 
 const Details: React.FC = (props: any) => {
@@ -28,7 +27,7 @@ const Details: React.FC = (props: any) => {
     // const [ allDocuments, setAllDocuments ] = useState<any>();
     // const [ detailsPage, setDetailsPage ] = useState<any>();
     // const [ userData, setUserData ] = useState<any>({});
-    // //const [ pageData, setPageData ] = useState<any>({});
+    // const [ pageData, setPageData ] = useState<any>({});
     // const [ pageContent, setPageContent ] = useState<any>({});
     // const [ showDetails, setShowDetails ] = useState<boolean>(false);
     // const [ fundData, setFundData ] = useState<boolean>(false);
@@ -108,13 +107,13 @@ const Details: React.FC = (props: any) => {
         //}       
     }
 
-    function getCapital(name:string, callback:any) {
+    function getCapital(id:string, callback:any) {
         const api = axios.create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
 
-        api.get(`/capitals/investor/${name}`)
+        api.get(`/capitals/investor/${id}`)
         .then((response) => {
             let total_funds: any = {};
 
@@ -147,17 +146,17 @@ const Details: React.FC = (props: any) => {
                 }
             });
             
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
 
-    function getFundShares(total_funds:any, name:string, callback:any) {
+    function getFundShares(total_funds:any, id:string, callback:any) {
         const api = axios.create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
 
-        api.get(`/documents/investor/${name}`)
+        api.get(`/documents/investor/${id}`)
         .then((response) => { 
             response.data.map((item: any) => {
                 if (item.fund_name) {
@@ -185,17 +184,17 @@ const Details: React.FC = (props: any) => {
                 }
             });
 
-            callback(null, total_funds, name);
+            callback(null, total_funds, id);
         });
     }
 
-    function getDocuments(total_funds:any, name:string, callback:any) {
+    function getDocuments(total_funds:any, id:string, callback:any) {
         const api = axios.create({
             //baseURL: 'http://localhost:3000'
             baseURL: 'https://gainvest-api.com'
         });
 
-        api.get(`/fund-shares/investor/${name}`)
+        api.get(`/fund-shares/investor/${id}`)
         .then((response) => { 
             response.data.map((item: any) => {
                 if (item.fund_name) {
@@ -234,11 +233,11 @@ const Details: React.FC = (props: any) => {
         if (props.location.state) {
             const firstName = props.location.state.data.firstName;
 			const lastName = props.location.state.data.lastName;
-            const name = firstName + ' ' + lastName;
+            const id = props.location.state.data.id;
             //const name = "Andre Harewood";
 
             async.waterfall([
-                async.constant(name),
+                async.constant(id),
                 getCapital,
                 getFundShares,
                 getDocuments,
@@ -276,16 +275,31 @@ const Details: React.FC = (props: any) => {
                 <Header/>
                 <IonContent className="light">
                     <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Your Portfolio</h1>
-                        <IonItem className="select-label">
-                            <IonLabel className="select-label">Funds</IonLabel>
-                            <IonSelect onIonChange={e => changeContent(e.detail.value!)} className="select-label" interface="popover">
-                                { pageData.fundNames &&
-                                    pageData.fundNames.map((val:any, index:any) => {
-                                        return <IonSelectOption className="select-label" value={val}>{val}</IonSelectOption>    
-                                    })
-                                }
-                            </IonSelect>
-                        </IonItem>
+                    <IonList className="docs-list">
+                        <IonListHeader>
+                            Legal
+                        </IonListHeader>
+                    </IonList>
+                    <IonList className="docs-list">
+                        <IonListHeader>
+                            Finance
+                        </IonListHeader>
+                    </IonList>
+                    <IonList className="docs-list">
+                        <IonListHeader>
+                            Accounting
+                        </IonListHeader>
+                    </IonList>
+                    <IonItem className="select-label" style={{ marginBottom: '30px' }}>
+                        <IonLabel className="select-label">My Funds</IonLabel>
+                        <IonSelect onIonChange={e => changeContent(e.detail.value!)} className="select-label" interface="popover">
+                            { pageData.fundNames &&
+                                pageData.fundNames.map((val:any, index:any) => {
+                                    return <IonSelectOption className="select-label" value={val}>{val}</IonSelectOption>    
+                                })
+                            }
+                        </IonSelect>
+                    </IonItem>
                     {pageData.showDetails && 
                         <IonList className='bg-and-text'>
                         <IonListHeader className="list-header">Capital</IonListHeader>
@@ -333,11 +347,11 @@ const Details: React.FC = (props: any) => {
                                 </div>
                                 <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Portfolio</IonLabel>
                             </IonCol>
-                            <IonCol className="nav-toolbar-item" onClick={() => { navigate('/funds') }}>
+                            <IonCol className="nav-toolbar-item" onClick={() => { navigate('/menu') }}>
                                 <div style={{ display: 'flex', alignItems: 'center'}}>
-                                    <IonIcon style={{ flex: '1'}} icon={businessSharp} />
+                                    <IonIcon style={{ flex: '1'}} icon={gridOutline} />
                                 </div>
-                                <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Funds</IonLabel>
+                                <IonLabel style={{ display: 'block', textAlign: 'center', fontSize:'11px'}}>Menu</IonLabel>
                             </IonCol>
                         </IonRow>
                     </IonToolbar>

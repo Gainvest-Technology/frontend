@@ -40,7 +40,7 @@ var react_1 = require("react");
 var react_2 = require("@ionic/react");
 var react_router_dom_1 = require("react-router-dom");
 var axios_1 = require("axios");
-var SignUp = function () {
+var NewPassword = function (props) {
     var history = react_router_dom_1.useHistory();
     var _a = react_1.useState(), firstName = _a[0], setFirstName = _a[1];
     var _b = react_1.useState(), lastName = _b[0], setLastName = _b[1];
@@ -51,24 +51,10 @@ var SignUp = function () {
     var _g = react_1.useState(false), accountCreated = _g[0], setAccountCreated = _g[1];
     var _h = react_1.useState(''), message = _h[0], setMessage = _h[1];
     var _j = react_1.useState({}), userData = _j[0], setUserData = _j[1];
-    function validateEmail(email) {
-        var regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-        return regexp.test(String(email).toLowerCase());
-    }
-    var handleRegister = function (event) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleUpdate = function (event) { return __awaiter(void 0, void 0, void 0, function () {
         var signUpData, api;
         return __generator(this, function (_a) {
-            if (!email) {
-                setMessage('Please enter a valid email');
-                setIserror(true);
-                return [2 /*return*/];
-            }
-            if (validateEmail(email) === false) {
-                setMessage('Your email is invalid');
-                setIserror(true);
-                return [2 /*return*/];
-            }
-            if (!password || password.length < 6) {
+            if (!password) {
                 setMessage('Please enter your password');
                 setIserror(true);
                 return [2 /*return*/];
@@ -79,9 +65,7 @@ var SignUp = function () {
                 return [2 /*return*/];
             }
             signUpData = {
-                first_name: firstName,
-                last_name: lastName,
-                email: email,
+                email: props.location.state.data.email,
                 password: password
             };
             api = axios_1["default"].create({
@@ -89,7 +73,7 @@ var SignUp = function () {
                 baseURL: 'https://gainvest-api.com'
             });
             api
-                .post('/signup', signUpData)
+                .post('/users/update_password', signUpData)
                 .then(function (response) {
                 setUserData({
                     token: response.data.token,
@@ -101,7 +85,7 @@ var SignUp = function () {
                     chatApiKey: response.data.chatApiKey,
                     chatId: response.data.chatId
                 });
-                setMessage('Account Created Successfully');
+                setMessage('Password Changed Successfully');
                 setAccountCreated(true);
             })["catch"](function (error) {
                 setMessage(error);
@@ -130,26 +114,20 @@ var SignUp = function () {
                 react_1["default"].createElement(react_2.IonCol, { "class": "logo-container" },
                     react_1["default"].createElement(react_2.IonImg, { "class": "logo", src: 'https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png' }))),
             react_1["default"].createElement("form", { className: "ion-padding form" },
-                react_1["default"].createElement(react_2.IonItem, { "class": "login-input" },
-                    react_1["default"].createElement(react_2.IonLabel, { position: "floating" }, "First Name"),
-                    react_1["default"].createElement(react_2.IonInput, { type: "text", value: firstName, onIonChange: function (e) { return setFirstName(e.detail.value); } })),
-                react_1["default"].createElement(react_2.IonItem, { "class": "login-input" },
-                    react_1["default"].createElement(react_2.IonLabel, { position: "floating" }, "Last Name"),
-                    react_1["default"].createElement(react_2.IonInput, { type: "text", value: lastName, onIonChange: function (e) { return setLastName(e.detail.value); } })),
-                react_1["default"].createElement(react_2.IonItem, { "class": "login-input" },
-                    react_1["default"].createElement(react_2.IonLabel, { position: "floating" }, "Email"),
-                    react_1["default"].createElement(react_2.IonInput, { type: "email", value: email, onIonChange: function (e) { return setEmail(e.detail.value); } })),
+                react_1["default"].createElement("h2", { style: { color: '#212326', textAlign: 'center' } }, "Welcome Back!"),
+                react_1["default"].createElement("p", { style: { color: '#212326', textAlign: 'center' } }, "Please Confirm Your Password For The New Gainvest Experience "),
                 react_1["default"].createElement(react_2.IonItem, { "class": "login-input" },
                     react_1["default"].createElement(react_2.IonLabel, { position: "floating" }, "Password"),
                     react_1["default"].createElement(react_2.IonInput, { type: "password", value: password, onIonChange: function (e) { return setPassword(e.detail.value); }, id: "password" })),
                 react_1["default"].createElement(react_2.IonItem, { "class": "login-input" },
                     react_1["default"].createElement(react_2.IonLabel, { position: "floating" }, "Confirm Password"),
                     react_1["default"].createElement(react_2.IonInput, { type: "password", value: confirmPassword, onIonChange: function (e) { return setConfirmPassword(e.detail.value); }, id: "confirm" })),
-                react_1["default"].createElement(react_2.IonButton, { className: "ion-margin-top", onClick: handleRegister, expand: "block" }, "Register")),
+                react_1["default"].createElement(react_2.IonButton, { className: "ion-margin-top", onClick: handleUpdate, expand: "block" }, "Update")),
             react_1["default"].createElement(react_2.IonRow, null,
                 react_1["default"].createElement(react_2.IonCol, null,
                     react_1["default"].createElement("p", { style: { fontSize: 'medium', textAlign: 'center' } },
                         "Already have an account? ",
-                        react_1["default"].createElement("a", { href: "/portal" }, "Sign In!")))))));
+                        react_1["default"].createElement("a", { href: "/" }, "Sign In!"))))),
+        react_1["default"].createElement(react_2.IonFooter, null)));
 };
-exports["default"] = SignUp;
+exports["default"] = NewPassword;

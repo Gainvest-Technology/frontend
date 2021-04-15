@@ -18,24 +18,23 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+import './assets/gainvest.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { Menu } from './components/Menu';
-//import Home from './pages/Home';
 import Portal from './pages/Portal';
 import SignUp from './pages/SignUp';
 import Chat from './pages/Chat';
-import ForgotPassword from './pages/ForgotPass';
-import Profile from './pages/Profile';
 import Intro from './pages/Intro';
 import Dashboard from './pages/Dashboard';
 import Details from './pages/Details';
 import Funds from './pages/Funds';
+import NewPassword from './pages/NewPassword';
+import Menu from './pages/Menu';
 // import { UserContext } from './contexts/UserContext'
 
-import LogRocket from 'logrocket';
-LogRocket.init('bak3sl/gainvest2');
+// import LogRocket from 'logrocket';
+// LogRocket.init('bak3sl/gainvest2');
 
 
 const App: React.FC = () => (
@@ -45,14 +44,13 @@ const App: React.FC = () => (
 				<IonRouterOutlet id="main">
 					<Route path="/" component={Portal} exact={true} />
 					<Route path="/chat" component={Chat} exact={true} />
-					{/* <Route path="/home" component={Home} exact={true} /> */}
 					<Route path="/dashboard" component={Dashboard} exact={true} />
 					<Route path="/signup" component={SignUp} exact={true} />
-					{/* <Route path="/forgotpass" component={ForgotPassword} exact={true} />
-					<Route path="/profile" component={Profile} exact={true} /> */}
 					<Route path="/intro" component={Intro} exact={true} />
 					<Route path="/documents" component={Details} exact={true} />
 					<Route path="/funds" component={Funds} exact={true} />
+					<Route path="/new_password" component={NewPassword} exact={true} />
+					<Route path="/menu" component={Menu} exact={true} />
 					<Route render={() => <Redirect to="/" />} />
 				</IonRouterOutlet>
 			</IonReactRouter>

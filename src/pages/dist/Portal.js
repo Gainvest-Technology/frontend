@@ -40,21 +40,12 @@ var react_1 = require("@ionic/react");
 var react_2 = require("react");
 var react_router_dom_1 = require("react-router-dom");
 var axios_1 = require("axios");
-require("../assets/gainvest.css");
 var Portal = function () {
     var history = react_router_dom_1.useHistory();
     var _a = react_2.useState(''), email = _a[0], setEmail = _a[1];
     var _b = react_2.useState(''), password = _b[0], setPassword = _b[1];
     var _c = react_2.useState(false), iserror = _c[0], setIserror = _c[1];
     var _d = react_2.useState(''), message = _d[0], setMessage = _d[1];
-    var _e = react_2.useState(''), token = _e[0], setToken = _e[1];
-    var _f = react_2.useState(''), chatToken = _f[0], setChatToken = _f[1];
-    var _g = react_2.useState(''), firstName = _g[0], setFirstName = _g[1];
-    var _h = react_2.useState(''), lastName = _h[0], setLastName = _h[1];
-    var _j = react_2.useState(''), id = _j[0], setId = _j[1];
-    var _k = react_2.useState(''), chatApiKey = _k[0], setChatApiKey = _k[1];
-    var _l = react_2.useState(''), chatId = _l[0], setChatId = _l[1];
-    var _m = react_2.useState(false), isLoggedIn = _m[0], setIsLoggedIn = _m[1];
     function validateEmail(email) {
         var regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         return regexp.test(String(email).toLowerCase());
@@ -88,30 +79,33 @@ var Portal = function () {
             api
                 .post('/users/login', loginData)
                 .then(function (response) {
-                setToken(response.data.token);
-                setChatToken(response.data.chatToken);
-                setFirstName(response.data.firstName);
-                setLastName(response.data.lastName);
-                setEmail(response.data.email);
-                setId(response.data.id);
-                setChatApiKey(response.data.chatApiKey);
-                setChatId(response.data.chatId);
-                setIsLoggedIn(true);
-                history.push({
-                    pathname: '/dashboard',
-                    state: {
-                        data: {
-                            token: response.data.token,
-                            chatToken: response.data.chatToken,
-                            firstName: response.data.firstName,
-                            lastName: response.data.lastName,
-                            email: response.data.email,
-                            id: response.data.userId,
-                            chatApiKey: response.data.chatApiKey,
-                            chatId: response.data.chatId
+                if (response.data.needsUpdate) {
+                    history.push({
+                        pathname: '/new_password',
+                        state: {
+                            data: {
+                                email: response.data.email
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else {
+                    history.push({
+                        pathname: '/dashboard',
+                        state: {
+                            data: {
+                                token: response.data.token,
+                                chatToken: response.data.chatToken,
+                                firstName: response.data.firstName,
+                                lastName: response.data.lastName,
+                                email: response.data.email,
+                                id: response.data.userId,
+                                chatApiKey: response.data.chatApiKey,
+                                chatId: response.data.chatId
+                            }
+                        }
+                    });
+                }
             })["catch"](function (error) {
                 setMessage('Email and/or Password Is Incorrect');
                 setIserror(true);
@@ -120,7 +114,7 @@ var Portal = function () {
         });
     }); };
     return (react_2["default"].createElement(react_1.IonPage, null,
-        react_2["default"].createElement(react_1.IonContent, { "class": "space-bg", fullscreen: true },
+        react_2["default"].createElement(react_1.IonContent, { className: "space-bg", fullscreen: true },
             react_2["default"].createElement(react_1.IonRow, null,
                 react_2["default"].createElement(react_1.IonCol, null,
                     react_2["default"].createElement(react_1.IonAlert, { isOpen: iserror, onDidDismiss: function () { return setIserror(false); }, cssClass: "my-custom-class", header: 'Error!', message: message, buttons: ['Dismiss'] }))),

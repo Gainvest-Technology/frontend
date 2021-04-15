@@ -1,10 +1,16 @@
-.space-bg {
-    --background: #fff url("./galaxy.jpg") no-repeat center center / cover;
+.ion-page {
+  background: #fff url("./galaxy.jpg") no-repeat center center / cover;
+}
+
+#main {
+  max-width: 1200px;
+  margin: 20px auto 20px auto;
+  border-radius: 10px;
 }
 
 .logo {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .logo-container {
@@ -244,4 +250,49 @@
 .nav-toolbar-item:hover {
   background: #ededed;
   color: #212326;
+}
+
+.str-chat__header-livestream-left, .str-chat__textarea__textarea {
+  color: #212326;
+}
+
+.str-chat {
+  height: 77vh !important;
+}
+
+.str-chat-channel-list--open.messaging {
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.space-bg {
+  --background: #fff url("./galaxy.jpg") no-repeat center center / cover;
+}
+
+.menu-page {
+  background: #ededed;
+  color: #212326;
+}
+
+.menu-page .item {
+  --background: #ededed;
+  --color: #212326;
+}
+
+@media (max-width: 600px) {
+  #main {
+    margin: 0;
+    border-radius: 0px;
+  }
+}
+
+.docs-list {
+  background: #ededed;
+  border-bottom: #212326 1px solid;
+  margin-bottom: 20px;
+}
+
+.docs-list ion-list-header {
+  color: #212326;
+  font-size: 18px;
 }
