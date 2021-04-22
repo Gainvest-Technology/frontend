@@ -147,10 +147,12 @@ const Dashboard: React.FC = (props: any) => {
 			<Header />
 
 			<IonContent>
-				<div className="back">
-					<h1 className="h1">Gainvestor Snapshot</h1>
+				<div className="back" style={{ background: '#00022e' }}>
+					<h1 className="h1" style={{ paddingTop: '15px' }}>
+						Gainvestor Snapshot
+					</h1>
 					<IonGrid>
-						<IonRow className="box-shadow" style={{ margin: '0px 40px 40px 40px', background: 'light' }}>
+						<IonRow className="box-shadow" style={{ margin: '0px 40px 40px 40px' }}>
 							<IonCol>
 								<div
 									className="flex-container"
@@ -191,27 +193,20 @@ const Dashboard: React.FC = (props: any) => {
 						<IonRow>
 							<IonCol className="stat-container">
 								<div className="stat-header">
-									<IonIcon
-										icon={logoUsd}
-										style={{ position: 'relative', top: '3px', color: 'green' }}
-									/>
+									<IonIcon icon={logoUsd} style={{ position: 'relative', top: '3px' }} />
 									{pageData.capitalAmount}
 								</div>
-								<div className="stat-label" style={{ fontWeight: 'bold' }}>
-									Total Amount Invested
-								</div>
+								<div className="stat-label">Total Amount Invested</div>
 							</IonCol>
 							<IonCol className="stat-container">
 								<div className="stat-header">
 									<IonIcon
 										icon={businessSharp}
-										style={{ position: 'relative', top: '2px', left: '-5px', color: 'blue' }}
+										style={{ position: 'relative', top: '2px', left: '-5px' }}
 									/>
 									{pageData.fundCount}
 								</div>
-								<div className="stat-label" style={{ fontWeight: 'bold' }}>
-									Total Funds Invested
-								</div>
+								<div className="stat-label">Total Funds Invested</div>
 							</IonCol>
 						</IonRow>
 						<IonRow>
@@ -219,23 +214,19 @@ const Dashboard: React.FC = (props: any) => {
 								<div className="stat-header">
 									<IonIcon
 										icon={peopleSharp}
-										style={{ position: 'relative', top: '3px', left: '-5px', color: 'purple' }}
+										style={{ position: 'relative', top: '3px', left: '-5px' }}
 									/>0
 								</div>
-								<div className="stat-label" style={{ fontWeight: 'bold' }}>
-									Gainvestor Interactions
-								</div>
+								<div className="stat-label">Gainvestor Interactions</div>
 							</IonCol>
 							<IonCol className="stat-container">
 								<div className="stat-header">
 									<IonIcon
 										icon={calendarSharp}
-										style={{ position: 'relative', top: '3px', left: '-5px', color: 'red' }}
+										style={{ position: 'relative', top: '3px', left: '-5px' }}
 									/>1
 								</div>
-								<div className="stat-label" style={{ fontWeight: 'bold' }}>
-									Days As A Gainvestor
-								</div>
+								<div className="stat-label">Days As A Gainvestor</div>
 							</IonCol>
 						</IonRow>
 					</IonGrid>

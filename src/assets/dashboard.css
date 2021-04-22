@@ -1,12 +1,11 @@
 .back {
-    background-image: linear-gradient(to bottom, #22313F, #F4F4F4);
-    height: 100%;
-    margin: -20px;
+    background: #00022e;
+    color: #fff;
+    height: 100vh;
 }
 
 h1 {
     color: #fff;
-    padding-top:10px;
 }
 
 h3 {
@@ -19,14 +18,23 @@ h5 {
 
 .funds, .chat, .portfolio {
     color: #ffffff;
-
 }
 
 .home {
    color: red;
 }
 
+/*.box-shadow {
+    box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.2);
+    background: #fff;
+}*/
 
 
+.box-shadow {
+    -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #fff;
+
+}
 
 

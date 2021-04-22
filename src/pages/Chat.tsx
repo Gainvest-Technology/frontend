@@ -141,7 +141,7 @@ const GainvestChat: React.FC = (props: any) => {
 				{/* {pageData.chatComponent} */}
 				{chatComponent}
 			</IonContent>
-			<IonToolbar slot="bottom" className="menu-tabs">
+			<IonToolbar slot="bottom" className="menu-tabs" style={{ paddingBottom: '20px' }}>
 				<IonRow>
 					<IonCol
 						className="nav-toolbar-item"

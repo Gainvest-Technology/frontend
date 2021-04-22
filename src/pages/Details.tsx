@@ -272,9 +272,19 @@ const Details: React.FC = (props: any) => {
 		<IonPage>
 			<Header />
 			<IonContent>
-				<div className="back">
+				<div className="backg">
 					<div className="body">
-						<h1 style={{ textAlign: 'center', marginBottom: '30px', color: '#000' }}>Your Portfolio</h1>
+						<h1
+							style={{
+								textAlign: 'center',
+								marginBottom: '30px',
+								color: '#fff',
+								marginTop: '0px',
+								paddingTop: '15px'
+							}}
+						>
+							Your Portfolio
+						</h1>
 						<IonItem className="select-label">
 							<IonLabel className="select-label">Funds</IonLabel>
 							<IonSelect
@@ -340,7 +350,7 @@ const Details: React.FC = (props: any) => {
 					</div>
 				</div>
 			</IonContent>
-			<IonToolbar slot="bottom" className="menu-tabs">
+			<IonToolbar slot="bottom" className="menu-tabs" style={{ paddingBottom: '20px' }}>
 				<IonRow>
 					<IonCol
 						className="nav-toolbar-item"

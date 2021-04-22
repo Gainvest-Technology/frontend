@@ -104,8 +104,10 @@ const Dashboard: React.FC = (props: any) => {
 		<IonPage>
 			<Header />
 			<IonContent className="light">
-				<div className="back">
-					<h1 className="h1">Available Funds</h1>
+				<div className="backer">
+					<h1 className="h1" style={{ paddingTop: '15px' }}>
+						Available Funds
+					</h1>
 
 					{isLoading === true ? (
 						<Loader />
@@ -117,14 +119,14 @@ const Dashboard: React.FC = (props: any) => {
 									<IonRow key={'fund-container' + index} className="fund-container box-shadow">
 										<IonRow
 											key={'fund-header' + index}
-											style={{ width: '100%' }}
+											style={{ width: '100%', color: '#fff' }}
 											className="fund-header"
 										>
 											<IonCol key={'innerCol' + index}>{fund.name}</IonCol>
 										</IonRow>
 										<IonRow
 											key={'1fund-row' + index}
-											style={{ width: '100%' }}
+											style={{ width: '100%', color: '#d3d3d3' }}
 											className="fund-row"
 										>
 											<IonCol key={'startDateCol' + index}>
@@ -151,7 +153,7 @@ const Dashboard: React.FC = (props: any) => {
 												<div key={'2fundSizeDiv' + index} style={{ fontWeight: 'bold' }}>
 													{fund.total_fund_size}
 												</div>
-											</IonCol>;
+											</IonCol>
 										</IonRow>
 										<IonRow
 											key={'2fund-row' + index}
@@ -171,7 +173,7 @@ const Dashboard: React.FC = (props: any) => {
 												<a key={'investAnc' + index} className="invest" href={fund.invest_rich}>
 													Invest
 												</a>
-											</IonCol>
+											</IonCol>);
 										</IonRow>
 									</IonRow>
 								);
@@ -181,7 +183,7 @@ const Dashboard: React.FC = (props: any) => {
 				</div>
 			</IonContent>
 
-			<IonToolbar slot="bottom" className="menu-tabs">
+			<IonToolbar slot="bottom" className="menu-tabs" style={{ paddingBottom: '20px' }}>
 				<IonRow>
 					<IonCol
 						className="nav-toolbar-item"
