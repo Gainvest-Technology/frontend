@@ -21,7 +21,8 @@ import {
 	homeSharp,
 	chatboxEllipsesSharp,
 	documentsSharp,
-	bluetooth
+	bluetooth,
+	cashSharp
 } from 'ionicons/icons';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
@@ -148,87 +149,119 @@ const Dashboard: React.FC = (props: any) => {
 
 			<IonContent>
 				<div className="back" style={{ background: '#00022e' }}>
-					<h1 className="h1" style={{ paddingTop: '15px' }}>
+					<h1 className="h1" style={{ paddingTop: '15px', fontSize: '15px' }}>
 						Gainvestor Snapshot
 					</h1>
 					<IonGrid>
-						<IonRow className="box-shadow" style={{ margin: '0px 40px 40px 40px' }}>
+						<IonRow>
 							<IonCol>
 								<div
 									className="flex-container"
-									style={{ height: '100px', margin: '20px', alignItems: 'center' }}
+									style={{ alignItems: 'center', padding: '0px', margin: '0px' }}
 								>
-									<IonAvatar style={{ flex: '1', height: '80px', maxWidth: '80px' }}>
+									<IonAvatar style={{ flex: '1', height: '90px', maxWidth: '90px' }}>
 										<img alt="" src={pageData.avatar} />
 									</IonAvatar>
-									<div className="banner" style={{ flex: '3', marginLeft: '20px' }}>
-										<h3>{pageData.firstName + ' ' + pageData.lastName}</h3>
-										<h5>{pageData.email}</h5>
-									</div>
-								</div>
-								<div className="flex-container">
-									<div className="flex-child">
-										<IonCard className="card">
-											<IonCardHeader className="card-header" style={{ background: '#ff0000' }}>
-												0
-											</IonCardHeader>
-											<IonCardContent className="card-content" style={{ color: '#000' }}>
-												Gainvest Score
-											</IonCardContent>
-										</IonCard>
-									</div>
-									<div className="flex-child">
-										<IonCard className="card">
-											<IonCardHeader className="level" style={{ background: '#40b040' }}>
-												Beginner
-											</IonCardHeader>
-											<IonCardContent className="card-content" style={{ color: '#000' }}>
-												Gainvestor Level
-											</IonCardContent>
-										</IonCard>
-									</div>
 								</div>
 							</IonCol>
 						</IonRow>
 						<IonRow>
-							<IonCol className="stat-container">
-								<div className="stat-header">
-									<IonIcon icon={logoUsd} style={{ position: 'relative', top: '3px' }} />
-									{pageData.capitalAmount}
+							<IonCol>
+								<div
+									className="flex-container"
+									style={{
+										alignItems: 'center',
+										textTransform: 'capitalize'
+									}}
+								>
+									<h3 style={{ paddingTop: '15px', margin: '0px' }}>
+										{pageData.firstName + ' ' + pageData.lastName}
+									</h3>
 								</div>
-								<div className="stat-label">Total Amount Invested</div>
-							</IonCol>
-							<IonCol className="stat-container">
-								<div className="stat-header">
-									<IonIcon
-										icon={businessSharp}
-										style={{ position: 'relative', top: '2px', left: '-5px' }}
-									/>
-									{pageData.fundCount}
-								</div>
-								<div className="stat-label">Total Funds Invested</div>
 							</IonCol>
 						</IonRow>
 						<IonRow>
-							<IonCol className="stat-container">
-								<div className="stat-header">
-									<IonIcon
-										icon={peopleSharp}
-										style={{ position: 'relative', top: '3px', left: '-5px' }}
-									/>0
+							<IonCol>
+								<div
+									className="flex-container"
+									style={{
+										flex: '1',
+										alignItems: 'center',
+										textTransform: 'capitalize'
+									}}
+								>
+									<h5 style={{ padding: '0px', margin: '0px', fontSize: '15px' }}>
+										{pageData.email}
+									</h5>
 								</div>
-								<div className="stat-label">Gainvestor Interactions</div>
-							</IonCol>
-							<IonCol className="stat-container">
-								<div className="stat-header">
-									<IonIcon
-										icon={calendarSharp}
-										style={{ position: 'relative', top: '3px', left: '-5px' }}
-									/>1
-								</div>
-								<div className="stat-label">Days As A Gainvestor</div>
 							</IonCol>
 						</IonRow>
+						<div className="bandWhole">
+							<div className="band">
+								<IonRow style={{ margin: '0 auto' }}>
+									<IonCard
+										style={{
+											width: '130px',
+											height: '130px',
+											background: '#a2e5d4',
+											color: '#fff',
+											borderRadius: '20px'
+										}}
+									>
+										<IonCardHeader style={{ color: '#fff' }}>Amount Invested</IonCardHeader>
+										<IonCardContent>
+											<IonIcon
+												icon={logoUsd}
+												style={{ position: 'relative', top: '3px', color: '#fff' }}
+											/>
+											{pageData.capitalAmount}
+										</IonCardContent>
+									</IonCard>
+
+									<IonCard
+										style={{
+											width: '130px',
+											height: '130px',
+											background: '#33a0ff',
+											color: '#fff',
+											borderRadius: '20px'
+										}}
+									>
+										<IonCardHeader style={{ color: '#fff' }}>Total Funds Invested</IonCardHeader>
+										<IonCardContent>{pageData.fundCount}</IonCardContent>
+									</IonCard>
+								</IonRow>
+							</div>
+							<div className="band2">
+								<IonRow style={{ margin: '0 auto' }}>
+									<IonCard
+										style={{
+											width: '130px',
+											height: '130px',
+											background: '#ff4a33',
+											color: '#fff',
+											borderRadius: '20px'
+										}}
+									>
+										<IonCardHeader style={{ color: '#fff' }}>Gainvest Interactions</IonCardHeader>
+										<IonCardContent>0</IonCardContent>
+									</IonCard>
+
+									<IonCard
+										style={{
+											width: '130px',
+											height: '130px',
+											background: '#ffcf33',
+											borderRadius: '20px',
+											color: '#fff'
+										}}
+									>
+										<IonCardHeader style={{ color: '#fff' }}>Days as a Gainvestor</IonCardHeader>
+										<IonCardContent>1</IonCardContent>
+									</IonCard>
+								</IonRow>
+							</div>
+						</div>
 					</IonGrid>
 				</div>
 			</IonContent>

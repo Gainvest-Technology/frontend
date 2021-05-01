@@ -37,4 +37,22 @@ h5 {
 
 }
 
+.band .band2{
+    width: 80%;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: center;
+    justify-items: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+
+.bandWhole {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    padding-top: 50px;
+
+}
+
 
