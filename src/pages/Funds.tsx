@@ -15,7 +15,16 @@ import { Header } from '../components/Header';
 import { Loader } from '../components/Loader';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { businessSharp, chatboxEllipsesSharp, documentsSharp, homeSharp } from 'ionicons/icons';
+import {
+	addCircle,
+	atCircle,
+	businessSharp,
+	caretDownSharp,
+	chatboxEllipsesSharp,
+	chevronDownSharp,
+	documentsSharp,
+	homeSharp
+} from 'ionicons/icons';
 import { any } from 'async';
 
 import '../assets/funds.css';
@@ -100,6 +109,8 @@ const Dashboard: React.FC = (props: any) => {
 		});
 	}
 
+	const colors = [ '#0088FE', '#00C49F', '#FFBB28', '#FF8042' ];
+
 	return (
 		<IonPage>
 			<Header />
@@ -122,7 +133,9 @@ const Dashboard: React.FC = (props: any) => {
 											style={{ width: '100%', color: '#fff' }}
 											className="fund-header"
 										>
-											<IonCol key={'innerCol' + index}>{fund.name}</IonCol>
+											<IonCol key={'innerCol' + index} style={{ textAlign: 'left' }}>
+												{fund.name}
+											</IonCol>
 										</IonRow>
 										<IonRow
 											key={'1fund-row' + index}
@@ -133,25 +146,31 @@ const Dashboard: React.FC = (props: any) => {
 												<div
 													key={'1startDateDiv' + index}
 													style={{
-														textDecoration: 'underline',
-														marginBottom: '10px'
+														marginBottom: '10px',
+														textAlign: 'left',
+														color: '#fff'
 													}}
 												>
-													Start Date
-												</div>
-												<div key={'2startDateDiv' + index} style={{ fontWeight: 'bold' }}>
+													Start Date <span> | </span>
 													{fund.start_date}
 												</div>
 											</IonCol>
+										</IonRow>
+										<IonRow style={{ width: '100%' }}>
 											<IonCol key={'fundSizeCol' + index}>
 												<div
-													key={'1fundSizeDiv' + index}
-													style={{ textDecoration: 'underline', marginBottom: '10px' }}
+													key={'2fundSizeDiv' + index}
+													style={{
+														fontWeight: 'bold',
+														color: '#fff',
+														fontSize: '30px',
+														width: '100%',
+														textAlign: 'left'
+													}}
 												>
-													Total Fund Size
-												</div>
-												<div key={'2fundSizeDiv' + index} style={{ fontWeight: 'bold' }}>
 													{fund.total_fund_size}
+													<span> </span>
+													<span style={{ fontSize: '15px' }}>Fund size</span>
 												</div>
 											</IonCol>
 										</IonRow>
@@ -167,13 +186,21 @@ const Dashboard: React.FC = (props: any) => {
 													href={fund.description}
 												>
 													Learn More
+													<IonIcon
+														icon={caretDownSharp}
+														style={{ marginLeft: '2px', marginTop: '20px' }}
+													/>
 												</a>
 											</IonCol>
 											<IonCol key={'investCol' + index}>
 												<a key={'investAnc' + index} className="invest" href={fund.invest_rich}>
 													Invest
+													<IonIcon
+														icon={caretDownSharp}
+														style={{ marginLeft: '2px', marginTop: '20px' }}
+													/>
 												</a>
-											</IonCol>);
+											</IonCol>
 										</IonRow>
 									</IonRow>
 								);

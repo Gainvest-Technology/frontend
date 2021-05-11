@@ -202,23 +202,23 @@
 .fund-container {
   margin: 10px 10px 20px 10px;
   padding: 10px;
+  background: #0088FE;
 }
 
 .learn-more {
   text-decoration: none;
   padding: 10px;
-  background: #2fb982;
   color: #ededed;
   font-weight: bold;
   border-radius: 4px;
   display: block;
   text-align: center;
+  
 }
 
 .invest {
   text-decoration: none;
   padding: 10px;
-  background: #4697b9;
   color: #ededed;
   font-weight: bold;
   border-radius: 4px;
