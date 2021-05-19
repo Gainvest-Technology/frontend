@@ -92,16 +92,16 @@ const GainvestChat: React.FC = (props: any) => {
 		});
 	}
 
-	// function changeTheme() {
-	// 	if (theme === 'light') {
-	// 		setChatStyle('messaging dark');
-	// 		setTheme('dark');
-	// 	}
-	// 	else {
-	// 		setChatStyle('messaging light');
-	// 		setTheme('light');
-	// 	}
-	// }
+	/*function changeTheme() {
+	 	if (theme === 'light') {
+	 		setChatStyle('messaging dark');
+	 		setTheme('dark');
+	 	}
+	 	else {
+ 		setChatStyle('messaging light');
+	 		setTheme('light');
+	 	}
+	}*/
 
 	return (
 		<IonPage>
