@@ -59,12 +59,11 @@ const SignUp: React.FC = () => {
 			return;
 		}
 
-		
 		const signUpData = {
 			first_name: firstName,
 			last_name: lastName,
 			email: email,
-			password: password,
+			password: password
 		};
 
 		const api = axios.create({
@@ -84,7 +83,7 @@ const SignUp: React.FC = () => {
 					id: response.data.id,
 					chatApiKey: response.data.chatApiKey,
 					chatId: response.data.chatId
-				})
+				});
 				setMessage('Account Created Successfully');
 				setAccountCreated(true);
 			})
@@ -96,16 +95,17 @@ const SignUp: React.FC = () => {
 
 	function goToIntro(): void {
 		history.push({
-            pathname: '/intro',
-            state: {
-                data: userData
-            }
-        });
+			pathname: '/intro',
+			state: {
+				data: userData
+			}
+		});
 	}
 
 	return (
-			<IonPage>
-				<IonContent class="space-bg" fullscreen>
+		<IonPage>
+			<IonContent class="space-bg" fullscreen>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#152238' }}>
 					<IonRow>
 						<IonCol>
 							<IonAlert
@@ -132,7 +132,10 @@ const SignUp: React.FC = () => {
 					</IonRow>
 					<IonRow>
 						<IonCol class="logo-container">
-							<IonImg class="logo" src='https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png' />
+							<IonImg
+								class="logo"
+								src="https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png"
+							/>
 						</IonCol>
 					</IonRow>
 					<form className="ion-padding form">
@@ -176,16 +179,22 @@ const SignUp: React.FC = () => {
 					</form>
 					<IonRow>
 						<IonCol>
-							<p style={{ fontSize: 'medium', textAlign: 'center' }}>
+							<p style={{ fontSize: 'medium', textAlign: 'center', color: '#777' }}>
 								Already have an account? <a href="/portal">Sign In!</a>
 							</p>
 						</IonCol>
 					</IonRow>
-				</IonContent>
-			</IonPage>
+				</div>
+			</IonContent>
+			<IonFooter>
+				<IonToolbar color="dark">
+					<p style={{ fontSize: 'medium', textAlign: 'center', paddingBottom: '0px' }}>
+						&copy; 2021 Gainvest Holdings LLC All rights reserved.
+					</p>
+				</IonToolbar>
+			</IonFooter>
+		</IonPage>
 	);
 };
 
 export default SignUp;
-
-

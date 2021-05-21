@@ -22,103 +22,107 @@ import './assets/gainvest.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Welcome from './pages/Welcome';
 import Portal from './pages/Portal';
 import SignUp from './pages/SignUp';
 import Chat from './pages/Chat';
+import Questions from './pages/Questions';
 import Intro from './pages/Intro';
 import Dashboard from './pages/Dashboard';
 import Details from './pages/Details';
 import Funds from './pages/Funds';
 import NewPassword from './pages/NewPassword';
 import Menu from './pages/Menu';
+
 // import { UserContext } from './contexts/UserContext'
 
 // import LogRocket from 'logrocket';
 // LogRocket.init('bak3sl/gainvest2');
 
-
 const App: React.FC = () => (
 	// <UserContext.Provider value={UserInfo}>
-		<IonApp>
-			<IonReactRouter>
-				<IonRouterOutlet id="main">
-					<Route path="/" component={Portal} exact={true} />
-					<Route path="/chat" component={Chat} exact={true} />
-					<Route path="/dashboard" component={Dashboard} exact={true} />
-					<Route path="/signup" component={SignUp} exact={true} />
-					<Route path="/intro" component={Intro} exact={true} />
-					<Route path="/documents" component={Details} exact={true} />
-					<Route path="/funds" component={Funds} exact={true} />
-					<Route path="/new_password" component={NewPassword} exact={true} />
-					<Route path="/menu" component={Menu} exact={true} />
-					<Route render={() => <Redirect to="/" />} />
-				</IonRouterOutlet>
-			</IonReactRouter>
-		</IonApp>
+	<IonApp>
+		<IonReactRouter>
+			<IonRouterOutlet id="main">
+				<Route path="/" component={Welcome} exact={true} />
+				<Route path="/portal" component={Portal} exact={true} />
+				<Route path="/chat" component={Chat} exact={true} />
+				<Route path="/dashboard" component={Dashboard} exact={true} />
+				<Route path="/signup" component={SignUp} exact={true} />
+				<Route path="/questions" component={Questions} exact={true} />
+				<Route path="/intro" component={Intro} exact={true} />
+				<Route path="/documents" component={Details} exact={true} />
+				<Route path="/funds" component={Funds} exact={true} />
+				<Route path="/new_password" component={NewPassword} exact={true} />
+				<Route path="/menu" component={Menu} exact={true} />
+				<Route render={() => <Redirect to="/" />} />
+			</IonRouterOutlet>
+		</IonReactRouter>
+	</IonApp>
 	// </UserContext.Provider>
-// 	<userContext.Consumer>
-//     {({user, logoutUser}) => {
-//       return (
-//         <Avatar user={user}/>
-//         <LogoutButton onClick={logoutUser}/>
-//       );
-//     }}
-//   </userContext.Consumer>
-		// <IonApp>
-		// 	<UserContext.Provider value={
-		// 		{
-		// 			token: '',
-		// 			firstName: '',
-		// 			lastName: '',
-		// 			email: '',
-		// 			id: '',
-		// 			chatToken: '',
-		// 			chatApiKey: '',
-		// 			chatId: '',
-		// 			isLoggedIn: false
-		// 		}
-		// 	}>
-		// 		<IonReactRouter>
-		// 			<IonTabs>
-		// 				<IonRouterOutlet id="main">
-		// 					<Route exact path="/">
-		// 						<Portal />
-		// 					</Route>
-		// 					<Route exact path="/dashboard">
-		// 						<Dashboard />
-		// 					</Route>
-		// 					<Route exact path="/chat">
-		// 						<Chat />
-		// 					</Route>
-		// 					<Route path="/details">
-		// 						<Details />
-		// 					</Route>
-		// 					{/* <Route exact path="/">
-		// 						<Redirect to="/tab1" />
-		// 					</Route> */}
-		// 				</IonRouterOutlet>
-		// 				<IonTabBar slot="bottom" className="tabby">
-		// 					<IonTabButton tab="tab1" href="/dashboard">
-		// 						<IonIcon icon={homeSharp} />
-		// 						<IonLabel>Home</IonLabel>
-		// 					</IonTabButton>
-		// 					<IonTabButton tab="tab2" href="/chat">
-		// 						<IonIcon icon={chatboxEllipsesSharp} />
-		// 						<IonLabel>Chat</IonLabel>
-		// 					</IonTabButton>
-		// 					<IonTabButton tab="tab3" href="/details">
-		// 						<IonIcon icon={documentsSharp} />
-		// 						<IonLabel>Portfolio</IonLabel>
-		// 					</IonTabButton>
-		// 					<IonTabButton tab="tab4" href="/all-funds">
-		// 						<IonIcon icon={businessSharp} />
-		// 						<IonLabel>Funds</IonLabel>
-		// 					</IonTabButton>
-		// 				</IonTabBar>
-		// 			</IonTabs>
-		// 		</IonReactRouter>
-		// 	</UserContext.Provider>
-		// </IonApp>
+	// 	<userContext.Consumer>
+	//     {({user, logoutUser}) => {
+	//       return (
+	//         <Avatar user={user}/>
+	//         <LogoutButton onClick={logoutUser}/>
+	//       );
+	//     }}
+	//   </userContext.Consumer>
+	// <IonApp>
+	// 	<UserContext.Provider value={
+	// 		{
+	// 			token: '',
+	// 			firstName: '',
+	// 			lastName: '',
+	// 			email: '',
+	// 			id: '',
+	// 			chatToken: '',
+	// 			chatApiKey: '',
+	// 			chatId: '',
+	// 			isLoggedIn: false
+	// 		}
+	// 	}>
+	// 		<IonReactRouter>
+	// 			<IonTabs>
+	// 				<IonRouterOutlet id="main">
+	// 					<Route exact path="/">
+	// 						<Portal />
+	// 					</Route>
+	// 					<Route exact path="/dashboard">
+	// 						<Dashboard />
+	// 					</Route>
+	// 					<Route exact path="/chat">
+	// 						<Chat />
+	// 					</Route>
+	// 					<Route path="/details">
+	// 						<Details />
+	// 					</Route>
+	// 					{/* <Route exact path="/">
+	// 						<Redirect to="/tab1" />
+	// 					</Route> */}
+	// 				</IonRouterOutlet>
+	// 				<IonTabBar slot="bottom" className="tabby">
+	// 					<IonTabButton tab="tab1" href="/dashboard">
+	// 						<IonIcon icon={homeSharp} />
+	// 						<IonLabel>Home</IonLabel>
+	// 					</IonTabButton>
+	// 					<IonTabButton tab="tab2" href="/chat">
+	// 						<IonIcon icon={chatboxEllipsesSharp} />
+	// 						<IonLabel>Chat</IonLabel>
+	// 					</IonTabButton>
+	// 					<IonTabButton tab="tab3" href="/details">
+	// 						<IonIcon icon={documentsSharp} />
+	// 						<IonLabel>Portfolio</IonLabel>
+	// 					</IonTabButton>
+	// 					<IonTabButton tab="tab4" href="/all-funds">
+	// 						<IonIcon icon={businessSharp} />
+	// 						<IonLabel>Funds</IonLabel>
+	// 					</IonTabButton>
+	// 				</IonTabBar>
+	// 			</IonTabs>
+	// 		</IonReactRouter>
+	// 	</UserContext.Provider>
+	// </IonApp>
 );
 
 export default App;

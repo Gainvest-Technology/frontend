@@ -8,13 +8,17 @@ import {
 	IonRow,
 	IonCol,
 	IonAlert,
-	IonImg
+	IonImg,
+	IonFooter,
+	IonToolbar,
+	IonApp
 } from '@ionic/react';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 
+import '../assets/gainvest.css';
 
 const Portal: React.FC = () => {
 	const history = useHistory();
@@ -69,8 +73,7 @@ const Portal: React.FC = () => {
 							}
 						}
 					});
-				}
-				else {
+				} else {
 					history.push({
 						pathname: '/dashboard',
 						state: {
@@ -96,45 +99,57 @@ const Portal: React.FC = () => {
 
 	return (
 		<IonPage>
-			<IonContent className="space-bg" fullscreen>
-				<IonRow>
-					<IonCol>
-						<IonAlert
-							isOpen={iserror}
-							onDidDismiss={() => setIserror(false)}
-							cssClass="my-custom-class"
-							header={'Error!'}
-							message={message}
-							buttons={[ 'Dismiss' ]}
-						/>
-					</IonCol>
-				</IonRow>
-				<IonRow>
-					<IonCol class="logo-container">
-						<IonImg class="logo" src='https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png' />
-					</IonCol>
-				</IonRow>
-				<form className="form">
-					<IonItem class="login-input">
-						<IonLabel position="floating">Email</IonLabel>
-						<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
-					</IonItem>
-					<IonItem class="login-input">
-						<IonLabel position="floating">Password</IonLabel>
-						<IonInput
-							type="password"
-							value={password}
-							onIonChange={(e) => setPassword(e.detail.value!)}
-						/>
-					</IonItem>
-					<IonButton className="ion-margin-top" onClick={handleLogin} expand="block">
-						Login
-					</IonButton>
-					<p style={{ fontSize: 'medium', textAlign: 'center', color:'#000', marginTop: '30px' }}>
-						Don't have an account? <a href="/signup">Sign up!</a>
-					</p>
-				</form>
+			<IonContent fullscreen>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#152238' }}>
+					<IonRow>
+						<IonCol>
+							<IonAlert
+								isOpen={iserror}
+								onDidDismiss={() => setIserror(false)}
+								cssClass="my-custom-class"
+								header={'Error!'}
+								message={message}
+								buttons={[ 'Dismiss' ]}
+							/>
+						</IonCol>
+					</IonRow>
+					<IonRow>
+						<IonCol class="logo-container">
+							<IonImg
+								class="logo"
+								src="https://gainvestco.s3.us-east-2.amazonaws.com/gainvest_logo.png"
+							/>
+						</IonCol>
+					</IonRow>
+					<form className="form">
+						<IonItem class="login-input">
+							<IonLabel position="floating">Email</IonLabel>
+							<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
+						</IonItem>
+						<IonItem class="login-input">
+							<IonLabel position="floating">Password</IonLabel>
+							<IonInput
+								type="password"
+								value={password}
+								onIonChange={(e) => setPassword(e.detail.value!)}
+							/>
+						</IonItem>
+						<IonButton className="ion-margin-top" onClick={handleLogin} expand="block">
+							Login
+						</IonButton>
+						<p style={{ fontSize: 'medium', textAlign: 'center', color: '#000', marginTop: '30px' }}>
+							Don't have an account? <a href="/signup">Sign up!</a>
+						</p>
+					</form>
+				</div>
 			</IonContent>
+			<IonFooter>
+				<IonToolbar color="dark">
+					<p style={{ fontSize: 'medium', textAlign: 'center', paddingBottom: '0px' }}>
+						&copy; 2021 Gainvest Holdings LLC All rights reserved.
+					</p>
+				</IonToolbar>
+			</IonFooter>
 		</IonPage>
 	);
 };
