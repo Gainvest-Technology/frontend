@@ -13,17 +13,64 @@ import {
 	IonSlides,
 	IonCheckbox,
 	IonFooter,
-	IonToolbar
+	IonToolbar,
+	IonIcon
 } from '@ionic/react';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
-import { text } from 'ionicons/icons';
+import { arrowBackOutline, arrowForwardOutline, checkbox, text } from 'ionicons/icons';
 import { Header } from '../components/Header';
 import '../assets/gainvest.css';
+import { any } from 'async';
+import { MessageActionsBox } from 'stream-chat-react';
 
-const Questions: React.FC = () => {
+
+const slideOpts = {
+	initialSlide: 0,
+	speed: 400
+};
+
+export const Questions: React.FC = () => {
+
+	const mySlides = useRef<HTMLIonSlidesElement>(null);
+
+	const [disablePrevBtn, setDisablePrevBtn] = useState(true);
+	const [disableNextBtn, setDisableNextBtn] = useState(false);
+
+
+	const handleSlideChange = async () => {
+		const swiper = await mySlides.current?.getSwiper();
+		setDisablePrevBtn(swiper.activeIndex === 0);
+		setDisableNextBtn(swiper.activeIndex === swiper.slides.length -1);
+
+	}
+
+	const onBtnClicked = async (direction: string) => {
+		const swiper = await mySlides.current?.getSwiper();
+		if (direction === "next") {
+		  swiper.slideNext();
+		} else if (direction === "prev") {
+		  swiper.slidePrev();
+		}
+	  };
+
+	  useEffect(() => {
+		  window.addEventListener('keyup', async function(e) {
+			if (q2.length > 0 && e.key === 'Enter') {
+				e.preventDefault();
+				const swiper = await mySlides.current?.getSwiper();
+				swiper.slideNext();
+			}
+		  });
+	  },[]);
+	  
+	
+	
+
+
+
 	const history = useHistory();
 	const [ q1, setQ1 ] = useState<string>('');
 	const [ q2, setQ2 ] = useState<string>('');
@@ -49,15 +96,6 @@ const Questions: React.FC = () => {
 	const [ q22, setQ22 ] = useState<string>('');
 	const [ q23, setQ23 ] = useState<string>('');
 	const [ q24, setQ24 ] = useState<string>('');
-	const [ q25, setQ25 ] = useState<string>('');
-	const [ q26, setQ26 ] = useState<string>('');
-
-	function validateEmail(email: string) {
-		const regexp = new RegExp(
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		);
-		return regexp.test(String(email).toLowerCase());
-	}
 
 	const handleSubmit = async (event: { preventDefault: () => void }) => {
 		const submitData = {
@@ -128,7 +166,7 @@ const Questions: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent fullscreen>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#152238' }}>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
 					<IonRow>
 						<IonCol class="logo-container">
 							<IonImg
@@ -140,314 +178,438 @@ const Questions: React.FC = () => {
 					<div style={{ color: '#999', textAlign: 'center', paddingTop: '40px', fontSize: '35px' }}>
 						Investor Onboarding
 					</div>
-
 					<form className="form" style={{ background: '100vh' }}>
 						<IonSlides
+							options={slideOpts}
 							style={{ height: '100%', backgroundColor: 'transparent', color: '#ededed' }}
 							pager={true}
+							class="swiper-no-swiping"
+							ref={mySlides}
+							onIonSlideDidChange={handleSlideChange}
 						>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the name of the entity? </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q1}
-									onIonChange={(e) => setQ1(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh'}}>
+									<p>What is the name of the entity? </p>
+									<IonInput
+										type="text"
+										id="one"
+										value={q1}
+										onIonChange={(e) => setQ1(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'
+										
+									}}
+
+									/>
+								</form>
+							</IonSlide>
+
+							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the entity type? (i.e. limited liability company) </p>
+									<IonInput
+										type="text"
+										value={q2}
+										onIonChange={(e) => setQ2(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the entity type? (i.e. limited liability company) </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q2}
-									onIonChange={(e) => setQ2(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the address of the entity? </p>
+									<IonInput
+										type="text"
+										value={q3}
+										onIonChange={(e) => setQ3(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the address of the entity? </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q3}
-									onIonChange={(e) => setQ3(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>In which state should the entity be registered? (Delaware default)</p>
+									<IonInput
+										type="text"
+										value={q4}
+										onIonChange={(e) => setQ4(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>In which state should the entity be registered? (Delaware default)</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q4}
-									onIonChange={(e) => setQ4(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the phone number of the entity?</p>
+									<IonInput
+									
+										type="text"
+										
+										value={q5}
+										onIonChange={(e) => setQ5(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the phone number of the entity?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q5}
-									onIonChange={(e) => setQ5(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the email for the entity?</p>
+									<IonInput
+				
+										type="text"
+									
+										value={q6}
+										onIonChange={(e) => setQ6(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the email for the entity?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q6}
-									onIonChange={(e) => setQ6(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the total offering amount of the entity? (can be indefinite) </p>
+									<IonInput
+									
+										type="text"
+										
+										value={q7}
+										onIonChange={(e) => setQ7(e.detail.value!)}
+										placeholder="Enter Input"
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the total offering amount of the entity? (can be indefinite) </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q7}
-									onIonChange={(e) => setQ7(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the minimum amount invetors can invest? </p>
+									<IonInput
+									
+										type="text"
+									
+										value={q8}
+										onIonChange={(e) => setQ8(e.detail.value!)}
+										placeholder="Enter Input"
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the minimum amount invetors can invest? </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q8}
-									onIonChange={(e) => setQ8(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the minimum amount the entity must raise to close the offering?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q9}
+										onIonChange={(e) => setQ9(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the minimum amount the entity must raise to close the offering?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q9}
-									onIonChange={(e) => setQ9(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>How much money has already been contributed to the entity? </p>
+									<IonInput
+									
+										type="text"
+									
+										value={q10}
+										onIonChange={(e) => setQ10(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>How much money has already been contributed to the entity? </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q10}
-									onIonChange={(e) => setQ10(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>How many investors have already contributed to the entity?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q11}
+										onIonChange={(e) => setQ11(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>How many investors have already contributed to the entity?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q11}
-									onIonChange={(e) => setQ11(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What is the name of the general partner/operator?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q12}
+										onIonChange={(e) => setQ12(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What is the name of the general partner/operator?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q12}
-									onIonChange={(e) => setQ12(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>In which state is the general partner/operator registered/residing?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q13}
+										onIonChange={(e) => setQ13(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>In which state is the general partner/operator registered/residing?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q13}
-									onIonChange={(e) => setQ13(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>
+										Who is the registered agent? (Must be person or service in the registration
+										state)
+									</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q14}
+										onIonChange={(e) => setQ14(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>
-									Who is the registered agent? (Must be person or service in the registration state)
-								</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q14}
-									onIonChange={(e) => setQ14(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>Who is the responsible party? (Must be natural person) </p>
+									<IonInput
+										
+										type="text"
+										
+										value={q15}
+										onIonChange={(e) => setQ15(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>Who is the responsible party? (Must be natural person) </p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q15}
-									onIonChange={(e) => setQ15(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>
+										What is the responsible party's Social Security Number (Necessary to apply for
+										EIN)
+									</p>
+									<IonInput
+										
+										type="text"
+								
+										value={q16}
+										onIonChange={(e) => setQ16(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>
-									What is the responsible party's Social Security Number (Necessary to apply for EIN)
-								</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q16}
-									onIonChange={(e) => setQ16(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>Will the investors receive 100% of returns until whole?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q17}
+										onIonChange={(e) => setQ17(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>Will the investors receive 100% of returns until whole?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q17}
-									onIonChange={(e) => setQ17(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>Will you offer a preferred return? If so, what are the terms?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q18}
+										onIonChange={(e) => setQ18(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>Will you offer a preferred return? If so, what are the terms?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q18}
-									onIonChange={(e) => setQ18(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>Will you offer a hurdle rate?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q19}
+										onIonChange={(e) => setQ19(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>Will you offer a hurdle rate?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q19}
-									onIonChange={(e) => setQ19(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What, if any, is the management fee?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q20}
+										onIonChange={(e) => setQ20(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What, if any, is the management fee?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q20}
-									onIonChange={(e) => setQ20(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What, if any, is the administration fee?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q21}
+										onIonChange={(e) => setQ21(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What, if any, is the administration fee?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q21}
-									onIonChange={(e) => setQ21(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What, if any, are the other fees?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q22}
+										onIonChange={(e) => setQ22(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What, if any, are the other fees?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q22}
-									onIonChange={(e) => setQ22(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>What, if any, is the carry interest for the general partner?</p>
+									<IonInput
+										
+										type="text"
+										
+										value={q23}
+										onIonChange={(e) => setQ23(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>What, if any, is the carry interest for the general partner?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q23}
-									onIonChange={(e) => setQ23(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
-							</IonSlide>
-							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<p>Are there any other important terms?</p>
-								<IonInput
-									className="quest"
-									type="text"
-									color="dark"
-									value={q24}
-									onIonChange={(e) => setQ24(e.detail.value!)}
-									placeholder="Enter Input"
-									style={{ marginBottom: '50px' }}
-								/>
+								<form className="form" style={{ background: '100vh' }}>
+									<p>Are there any other important terms?</p>
+									<IonInput
+									
+										type="text"
+										
+										value={q24}
+										onIonChange={(e) => setQ24(e.detail.value!)}
+										placeholder="Enter Input"
+										required
+										style={{ marginBottom: '50px',
+							 			borderBottom: '1px solid #fff', width: '300px'}}
+									/>
+								</form>
 								<IonItem className="cert">
 									<IonLabel>
 										I hereby certify that the above statements are true and correct to the best of
 										my knowledge
 									</IonLabel>
-									<IonCheckbox slot="start" />
+									<IonCheckbox slot="start" id='box'/>
 								</IonItem>
 								<IonButton
+									type="button"
 									className="ion-margin-top"
 									expand="block"
 									onClick={handleSubmit}
+									disabled={
+										!q1 ||
+										!q2 ||
+										!q3 ||
+										!q4 ||
+										!q5 ||
+										!q6 ||
+										!q7 ||
+										!q8 ||
+										!q9 ||
+										!q10 ||
+										!q11 ||
+										!q12 ||
+										!q13 ||
+										!q14 ||
+										!q15 ||
+										!q16 ||
+										!q17 ||
+										!q18 ||
+										!q19 ||
+										!q20 ||
+										!q21 ||
+										!q22 ||
+										!q23 ||
+										!q24 
+									}
 									style={{
 										width: '30%',
 										margin: '0 auto',
@@ -460,6 +622,15 @@ const Questions: React.FC = () => {
 							</IonSlide>
 						</IonSlides>
 					</form>
+					<div style={{ textAlign: 'center' }}>
+						<IonButton disabled={disablePrevBtn} onClick={() => onBtnClicked("prev")}>
+							<IonIcon icon={arrowBackOutline} style={{ position: 'relative', top: '3px' }} />
+						</IonButton>
+						<IonButton disabled={disableNextBtn} onClick={() => onBtnClicked("next")}>
+							<IonIcon icon={arrowForwardOutline} style={{ position: 'relative', top: '3px' }} />
+						</IonButton>
+					</div>
+
 					<div style={{ textAlign: 'center', paddingTop: 12 }} />
 				</div>
 			</IonContent>

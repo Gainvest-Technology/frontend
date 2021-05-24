@@ -10,8 +10,7 @@ import {
 	IonAlert,
 	IonImg,
 	IonFooter,
-	IonToolbar,
-	IonApp
+	IonToolbar
 } from '@ionic/react';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -100,7 +99,7 @@ const Portal: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent fullscreen>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#152238' }}>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
 					<IonRow>
 						<IonCol>
 							<IonAlert

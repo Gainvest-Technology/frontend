@@ -25,7 +25,7 @@ const Welcome: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#152238' }}>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
 					<IonRow>
 						<IonCol class="logo-container">
 							<IonImg

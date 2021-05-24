@@ -105,7 +105,7 @@ const SignUp: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent class="space-bg" fullscreen>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#152238' }}>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
 					<IonRow>
 						<IonCol>
 							<IonAlert
