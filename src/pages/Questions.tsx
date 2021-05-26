@@ -33,44 +33,6 @@ const slideOpts = {
 };
 
 export const Questions: React.FC = () => {
-
-	const mySlides = useRef<HTMLIonSlidesElement>(null);
-
-	const [disablePrevBtn, setDisablePrevBtn] = useState(true);
-	const [disableNextBtn, setDisableNextBtn] = useState(false);
-
-
-	const handleSlideChange = async () => {
-		const swiper = await mySlides.current?.getSwiper();
-		setDisablePrevBtn(swiper.activeIndex === 0);
-		setDisableNextBtn(swiper.activeIndex === swiper.slides.length -1);
-
-	}
-
-	const onBtnClicked = async (direction: string) => {
-		const swiper = await mySlides.current?.getSwiper();
-		if (direction === "next") {
-		  swiper.slideNext();
-		} else if (direction === "prev") {
-		  swiper.slidePrev();
-		}
-	  };
-
-	  useEffect(() => {
-		  window.addEventListener('keyup', async function(e) {
-			if (q2.length > 0 && e.key === 'Enter') {
-				e.preventDefault();
-				const swiper = await mySlides.current?.getSwiper();
-				swiper.slideNext();
-			}
-		  });
-	  },[]);
-	  
-	
-	
-
-
-
 	const history = useHistory();
 	const [ q1, setQ1 ] = useState<string>('');
 	const [ q2, setQ2 ] = useState<string>('');
@@ -96,6 +58,50 @@ export const Questions: React.FC = () => {
 	const [ q22, setQ22 ] = useState<string>('');
 	const [ q23, setQ23 ] = useState<string>('');
 	const [ q24, setQ24 ] = useState<string>('');
+
+	const mySlides = useRef<HTMLIonSlidesElement>(null);
+	const myBox = useRef<any>(null);
+
+
+
+	const [disablePrevBtn, setDisablePrevBtn] = useState(true);
+	const [disableNextBtn, setDisableNextBtn] = useState(false);
+
+	const [disableSubmitBtn, setDisableSubmitBtn] = useState(true);
+	const [checkBox, setCheckBox] = useState(false);
+
+	
+
+
+	/*const handleCheckBox = () => {
+		if (myBox.current.checked === true) {
+			console.log('checked');
+		}
+	}*/
+
+	const handleSlideChange = async () => {
+		const swiper = await mySlides.current?.getSwiper();
+		setDisablePrevBtn(swiper.activeIndex === 0);
+		setDisableNextBtn(swiper.activeIndex === swiper.slides.length -1);
+
+	}
+
+	const onBtnClicked = async (direction: string) => {
+		const swiper = await mySlides.current?.getSwiper();
+		if (direction === "next") {
+		  swiper.slideNext();
+		} else if (direction === "prev") {
+		  swiper.slidePrev();
+		}
+	  };
+
+	const handleKeyPress = async (event: { key: string; }) => {
+		if(event.key === 'Enter'){
+			const swiper = await mySlides.current?.getSwiper();
+			swiper.slideNext();
+		}
+	  }
+
 
 	const handleSubmit = async (event: { preventDefault: () => void }) => {
 		const submitData = {
@@ -165,8 +171,8 @@ export const Questions: React.FC = () => {
 
 	return (
 		<IonPage>
-			<IonContent fullscreen>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
+			<IonContent fullscreen  >
+				<div style={{ background: '#203354' }}>
 					<IonRow>
 						<IonCol class="logo-container">
 							<IonImg
@@ -178,38 +184,31 @@ export const Questions: React.FC = () => {
 					<div style={{ color: '#999', textAlign: 'center', paddingTop: '40px', fontSize: '35px' }}>
 						Investor Onboarding
 					</div>
-					<form className="form" style={{ background: '100vh' }}>
+					
 						<IonSlides
 							options={slideOpts}
-							style={{ height: '100%', backgroundColor: 'transparent', color: '#ededed' }}
+							style={{ color: '#ededed', background: 'transparent' }}
 							pager={true}
 							class="swiper-no-swiping"
 							ref={mySlides}
-							onIonSlideDidChange={handleSlideChange}
-						>
+							onIonSlideDidChange={handleSlideChange}>
+
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh'}}>
-									<p>What is the name of the entity? </p>
+									<p style={{paddingTop: '50px'}}>What is the name of the entity? </p>
 									<IonInput
 										type="text"
 										id="one"
 										value={q1}
 										onIonChange={(e) => setQ1(e.detail.value!)}
 										placeholder="Enter Input"
+										onKeyPress={handleKeyPress}
 										required
-										
-										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'
-										
-									}}
-
-									/>
-								</form>
+										style={{ 
+							 			borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
 							</IonSlide>
-
+						
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the entity type? (i.e. limited liability company) </p>
+									<p style={{paddingTop: '50px'}}>What is the entity type? (i.e. limited liability company) </p>
 									<IonInput
 										type="text"
 										value={q2}
@@ -217,13 +216,11 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
 							</IonSlide>
+
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the address of the entity? </p>
+									<p style={{paddingTop: '50px'}}>What is the address of the entity? </p>
 									<IonInput
 										type="text"
 										value={q3}
@@ -231,13 +228,11 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>In which state should the entity be registered? (Delaware default)</p>
+									<p style={{paddingTop: '50px'}}> In which state should the entity be registered? (Delaware default)</p>
 									<IonInput
 										type="text"
 										value={q4}
@@ -245,29 +240,26 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
-							</IonSlide>
-							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the phone number of the entity?</p>
-									<IonInput
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
 									
+							</IonSlide>
+
+							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
+									<p style={{paddingTop: '50px'}}>What is the phone number of the entity?</p>
+									<IonInput
 										type="text"
-										
 										value={q5}
 										onIonChange={(e) => setQ5(e.detail.value!)}
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+								
 							</IonSlide>
+							
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the email for the entity?</p>
+							
+									<p style={{paddingTop: '50px'}}>What is the email for the entity?</p>
 									<IonInput
 				
 										type="text"
@@ -277,13 +269,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+				
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the total offering amount of the entity? (can be indefinite) </p>
+								
+									<p style={{paddingTop: '50px'}}>What is the total offering amount of the entity? (can be indefinite) </p>
 									<IonInput
 									
 										type="text"
@@ -292,13 +284,13 @@ export const Questions: React.FC = () => {
 										onIonChange={(e) => setQ7(e.detail.value!)}
 										placeholder="Enter Input"
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the minimum amount invetors can invest? </p>
+								
+									<p style={{paddingTop: '50px'}}>What is the minimum amount invetors can invest? </p>
 									<IonInput
 									
 										type="text"
@@ -307,12 +299,12 @@ export const Questions: React.FC = () => {
 										onIonChange={(e) => setQ8(e.detail.value!)}
 										placeholder="Enter Input"
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
+							
 									<p>What is the minimum amount the entity must raise to close the offering?</p>
 									<IonInput
 										
@@ -323,13 +315,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>How much money has already been contributed to the entity? </p>
+								
+									<p style={{paddingTop: '50px'}}>How much money has already been contributed to the entity? </p>
 									<IonInput
 									
 										type="text"
@@ -339,13 +331,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>How many investors have already contributed to the entity?</p>
+							
+									<p style={{paddingTop: '50px'}}>How many investors have already contributed to the entity?</p>
 									<IonInput
 										
 										type="text"
@@ -355,13 +347,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What is the name of the general partner/operator?</p>
+								
+									<p style={{paddingTop: '50px'}}>What is the name of the general partner/operator?</p>
 									<IonInput
 										
 										type="text"
@@ -371,13 +363,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>In which state is the general partner/operator registered/residing?</p>
+								
+									<p style={{paddingTop: '50px'}}> In which state is the general partner/operator registered/residing?</p>
 									<IonInput
 										
 										type="text"
@@ -387,13 +379,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+							
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>
+								
+									<p style={{paddingTop: '50px'}}>
 										Who is the registered agent? (Must be person or service in the registration
 										state)
 									</p>
@@ -406,13 +398,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>Who is the responsible party? (Must be natural person) </p>
+								
+									<p style={{paddingTop: '50px'}}>Who is the responsible party? (Must be natural person) </p>
 									<IonInput
 										
 										type="text"
@@ -422,13 +414,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>
+								
+									<p style={{paddingTop: '50px'}}>
 										What is the responsible party's Social Security Number (Necessary to apply for
 										EIN)
 									</p>
@@ -441,13 +433,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+							
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>Will the investors receive 100% of returns until whole?</p>
+								
+									<p style={{paddingTop: '50px'}}>Will the investors receive 100% of returns until whole?</p>
 									<IonInput
 										
 										type="text"
@@ -457,13 +449,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>Will you offer a preferred return? If so, what are the terms?</p>
+								
+									<p style={{paddingTop: '50px'}}>Will you offer a preferred return? If so, what are the terms?</p>
 									<IonInput
 										
 										type="text"
@@ -473,13 +465,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>Will you offer a hurdle rate?</p>
+							
+									<p style={{paddingTop: '50px'}}>Will you offer a hurdle rate?</p>
 									<IonInput
 										
 										type="text"
@@ -489,13 +481,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What, if any, is the management fee?</p>
+								
+									<p style={{paddingTop: '50px'}}>What, if any, is the management fee?</p>
 									<IonInput
 										
 										type="text"
@@ -505,13 +497,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+							
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What, if any, is the administration fee?</p>
+							
+									<p style={{paddingTop: '50px'}}>What, if any, is the administration fee?</p>
 									<IonInput
 										
 										type="text"
@@ -521,13 +513,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What, if any, are the other fees?</p>
+							
+									<p style={{paddingTop: '50px'}}>What, if any, are the other fees?</p>
 									<IonInput
 										
 										type="text"
@@ -537,13 +529,13 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>What, if any, is the carry interest for the general partner?</p>
+							
+									<p style={{paddingTop: '50px'}}> What, if any, is the carry interest for the general partner?</p>
 									<IonInput
 										
 										type="text"
@@ -553,63 +545,40 @@ export const Questions: React.FC = () => {
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								<form className="form" style={{ background: '100vh' }}>
-									<p>Are there any other important terms?</p>
+								
+									<p style={{paddingTop: '50px'}}>Are there any other important terms?</p>
 									<IonInput
 									
 										type="text"
-										
+										autofocus = {true}
 										value={q24}
 										onIonChange={(e) => setQ24(e.detail.value!)}
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
-							 			borderBottom: '1px solid #fff', width: '300px'}}
-									/>
-								</form>
+										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
+									
+								
 								<IonItem className="cert">
 									<IonLabel>
 										I hereby certify that the above statements are true and correct to the best of
 										my knowledge
 									</IonLabel>
-									<IonCheckbox slot="start" id='box'/>
+									<IonCheckbox slot="start"  ref={myBox} checked={false}/>
 								</IonItem>
 								<IonButton
-									type="button"
+									type="submit"
+									id = 'submit_button'
+									ref ={myBox}
 									className="ion-margin-top"
 									expand="block"
 									onClick={handleSubmit}
-									disabled={
-										!q1 ||
-										!q2 ||
-										!q3 ||
-										!q4 ||
-										!q5 ||
-										!q6 ||
-										!q7 ||
-										!q8 ||
-										!q9 ||
-										!q10 ||
-										!q11 ||
-										!q12 ||
-										!q13 ||
-										!q14 ||
-										!q15 ||
-										!q16 ||
-										!q17 ||
-										!q18 ||
-										!q19 ||
-										!q20 ||
-										!q21 ||
-										!q22 ||
-										!q23 ||
-										!q24 
-									}
+									disabled={disableSubmitBtn}
 									style={{
 										width: '30%',
 										margin: '0 auto',
@@ -621,8 +590,8 @@ export const Questions: React.FC = () => {
 								</IonButton>
 							</IonSlide>
 						</IonSlides>
-					</form>
-					<div style={{ textAlign: 'center' }}>
+					
+					<div style={{ textAlign: 'center', paddingTop: '12px',paddingBottom: '310px'}}>
 						<IonButton disabled={disablePrevBtn} onClick={() => onBtnClicked("prev")}>
 							<IonIcon icon={arrowBackOutline} style={{ position: 'relative', top: '3px' }} />
 						</IonButton>
@@ -630,10 +599,9 @@ export const Questions: React.FC = () => {
 							<IonIcon icon={arrowForwardOutline} style={{ position: 'relative', top: '3px' }} />
 						</IonButton>
 					</div>
-
-					<div style={{ textAlign: 'center', paddingTop: 12 }} />
-				</div>
+			</div>
 			</IonContent>
+		
 			<IonFooter>
 				<IonToolbar color="dark">
 					<p style={{ fontSize: 'medium', textAlign: 'center', paddingBottom: '0px' }}>
@@ -646,3 +614,5 @@ export const Questions: React.FC = () => {
 };
 
 export default Questions;
+
+
