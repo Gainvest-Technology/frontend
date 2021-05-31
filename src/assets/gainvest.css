@@ -30,7 +30,9 @@
   --background: 'transparent';
  
 }
-
+.hideSlide {
+  --background: 'transparent';
+}
 .login-input {
   --background: #999;
   --color: #222428;
@@ -39,6 +41,10 @@
 .header {
   --background: #fff;
   padding-left: 10px;
+}
+
+.questionGiven {
+  --font-weight: 'bold';
 }
 
 .quest {

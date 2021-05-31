@@ -7,24 +7,19 @@ import {
 	IonButton,
 	IonRow,
 	IonCol,
-	IonAlert,
 	IonImg,
 	IonSlide,
 	IonSlides,
 	IonCheckbox,
 	IonFooter,
 	IonToolbar,
-	IonIcon
+	IonIcon,
 } from '@ionic/react';
-import React, { useCallback, useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { UserContext } from '../contexts/UserContext';
-import { arrowBackOutline, arrowForwardOutline, checkbox, text } from 'ionicons/icons';
-import { Header } from '../components/Header';
+import { arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
 import '../assets/gainvest.css';
-import { any } from 'async';
-import { MessageActionsBox } from 'stream-chat-react';
 
 
 const slideOpts = {
@@ -60,30 +55,47 @@ export const Questions: React.FC = () => {
 	const [ q24, setQ24 ] = useState<string>('');
 
 	const mySlides = useRef<HTMLIonSlidesElement>(null);
-	const myBox = useRef<any>(null);
-
-
-
+	
 	const [disablePrevBtn, setDisablePrevBtn] = useState(true);
 	const [disableNextBtn, setDisableNextBtn] = useState(false);
-
-	const [disableSubmitBtn, setDisableSubmitBtn] = useState(true);
-	const [checkBox, setCheckBox] = useState(false);
+	const [agree, setAgree] = useState(false);
+	const [showItems, setShowItems] = useState(false);
+	const btnref = useRef<HTMLIonButtonElement>(null);
+	const goBackRef = useRef<HTMLIonButtonElement>(null);
 
 	
 
+	const checkboxHandler = () => {
+		setAgree(!agree);
+	  }
 
-	/*const handleCheckBox = () => {
-		if (myBox.current.checked === true) {
-			console.log('checked');
+	  /*const itemShown = () => {
+		  if (showItems === false) {
+			//btnref.current!.hidden = true;
+			console.log('false')
+		  } else if (showItems === true) {
+			//btnref.current!.hidden = false;  
+			//btnref.current?.setAttribute("hidden","true");
+			console.log('true');
+		  }
+		}*/
+
+		const itemShown = async() => {
+			const swiper = await mySlides.current?.getSwiper();
+			setShowItems(!showItems);
+			swiper.slideNext();
 		}
-	}*/
 
+		const itemBack = async() => {
+			const swiper = await mySlides.current?.getSwiper();
+			setShowItems(!showItems);
+			swiper.slidePrev();
+		}
+	
 	const handleSlideChange = async () => {
 		const swiper = await mySlides.current?.getSwiper();
 		setDisablePrevBtn(swiper.activeIndex === 0);
 		setDisableNextBtn(swiper.activeIndex === swiper.slides.length -1);
-
 	}
 
 	const onBtnClicked = async (direction: string) => {
@@ -96,12 +108,13 @@ export const Questions: React.FC = () => {
 	  };
 
 	const handleKeyPress = async (event: { key: string; }) => {
-		if(event.key === 'Enter'){
+		if(event.key === 'Enter' && q1.length >0){
 			const swiper = await mySlides.current?.getSwiper();
 			swiper.slideNext();
-		}
-	  }
-
+	  } else if(event.key === 'Enter' && q1.length <1) {
+			  alert("Please provide information");
+	}
+}
 
 	const handleSubmit = async (event: { preventDefault: () => void }) => {
 		const submitData = {
@@ -130,6 +143,33 @@ export const Questions: React.FC = () => {
 			q23: q23,
 			q24: q24
 		};
+
+		console.log(submitData);
+		setQ1('');
+		setQ2('');
+		setQ3('');
+		setQ4('');
+		setQ5('');
+		setQ6('');
+		setQ7('');
+		setQ8('');
+		setQ9('');
+		setQ10('');
+		setQ11('');
+		setQ12('');
+		setQ13('');
+		setQ14('');
+		setQ15('');
+		setQ16('');
+		setQ17('');
+		setQ18('');
+		setQ19('');
+		setQ20('');
+		setQ21('');
+		setQ22('');
+		setQ23('');
+		setQ24('');
+
 
 		const api = axios.create({
 			baseURL: 'https://gainvest-api.com'
@@ -187,10 +227,12 @@ export const Questions: React.FC = () => {
 					
 						<IonSlides
 							options={slideOpts}
-							style={{ color: '#ededed', background: 'transparent' }}
+							style={{ color: '#ededed', background: 'transparent', paddingBottom: '75px' }}
 							pager={true}
 							class="swiper-no-swiping"
+							
 							ref={mySlides}
+							onKeyPress={handleKeyPress}
 							onIonSlideDidChange={handleSlideChange}>
 
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
@@ -199,10 +241,11 @@ export const Questions: React.FC = () => {
 										type="text"
 										id="one"
 										value={q1}
+										
+										//onIonChange={titleChangeHandler}
 										onIonChange={(e) => setQ1(e.detail.value!)}
 										placeholder="Enter Input"
-										onKeyPress={handleKeyPress}
-										required
+									
 										style={{ 
 							 			borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
 							</IonSlide>
@@ -441,17 +484,13 @@ export const Questions: React.FC = () => {
 								
 									<p style={{paddingTop: '50px'}}>Will the investors receive 100% of returns until whole?</p>
 									<IonInput
-										
 										type="text"
-										
 										value={q17}
 										onIonChange={(e) => setQ17(e.detail.value!)}
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
 										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
-									
-								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
 								
@@ -489,9 +528,7 @@ export const Questions: React.FC = () => {
 								
 									<p style={{paddingTop: '50px'}}>What, if any, is the management fee?</p>
 									<IonInput
-										
 										type="text"
-										
 										value={q20}
 										onIonChange={(e) => setQ20(e.detail.value!)}
 										placeholder="Enter Input"
@@ -507,7 +544,6 @@ export const Questions: React.FC = () => {
 									<IonInput
 										
 										type="text"
-										
 										value={q21}
 										onIonChange={(e) => setQ21(e.detail.value!)}
 										placeholder="Enter Input"
@@ -550,35 +586,198 @@ export const Questions: React.FC = () => {
 								
 							</IonSlide>
 							<IonSlide style={{ display: 'block', marginTop: '25px' }}>
-								
-									<p style={{paddingTop: '50px'}}>Are there any other important terms?</p>
+									<p style={{paddingTop: '50px'}}> Are there any other important terms?</p>
 									<IonInput
-									
 										type="text"
-										autofocus = {true}
 										value={q24}
 										onIonChange={(e) => setQ24(e.detail.value!)}
 										placeholder="Enter Input"
 										required
 										style={{ marginBottom: '50px',
 										borderBottom: '1px solid #fff', width: '300px', margin: '0 auto', paddingTop: '50px'}}/>
-									
+								<IonButton
+									type="button"
+									className="ion-margin-top"
+									expand="block"
+									ref={goBackRef}
+									//onClick={() => setShowItems(!showItems)}
+									onClick={itemShown}
+									style={{
+										width: '30%',
+										margin: '0 auto',
+										marginTop: '50px',
+										color: '#000'
+									}}	
+								>
+									Review
+								</IonButton>
 								
+							</IonSlide>
+
+							
+							<IonSlide ref={btnref} 
+							 
+							style={{ display: 'block'}}>
+					
+						<div hidden={!showItems} className="hideSlide">
+						<IonItem>
+								<p style={{fontWeight: 'bold'}}>
+								What is the name of the entity? 
+								<p style={{color: 'red'}}>{q1}</p>
+      							</p>
+						</IonItem>
+								<IonItem>
+								  <p style={{fontWeight: 'bold'}}> 
+								  What is the entity type? (i.e. limited liability company) 
+								  <p style={{color: 'red'}}>{q2}</p>
+								</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the address of the entity?
+									<p style={{color: 'red'}}>{q3}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>In which state should the entity be registered? (Delaware default) 
+									<p style={{color: 'red'}}>{q4}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the phone number of the entity?
+										<p style={{color: 'red'}}>{q5}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the email for the entity?
+										<p style={{color: 'red'}}>{q6}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the total offering amount of the entity? (can be indefinite)
+										<p style={{color: 'red'}}>{q7}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the minimum amount invetors can invest?
+										<p style={{color: 'red'}}>{q8}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the minimum amount the entity must raise to close the offering?
+										<p style={{color: 'red'}}>{q9}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>How much money has already been contributed to the entity?
+										<p style={{color: 'red'}}>{q10}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>How many investors have already contributed to the entity?
+										<p style={{color: 'red'}}>{q11}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the name of the general partner/operator?
+										<p style={{color: 'red'}}>{q12}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>In which state is the general partner/operator registered/residing?
+										<p style={{color: 'red'}}>{q13}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>Who is the registered agent? (Must be person or service in the registration
+										state)
+										<p style={{color: 'red'}}>{q14}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>Who is the responsible party? (Must be natural person)
+										<p style={{color: 'red'}}>{q15}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What is the responsible party's Social Security Number (Necessary to apply for
+										EIN)
+										<p style={{color: 'red'}}>{q16}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>Will the investors receive 100% of returns until whole?
+										<p style={{color: 'red'}}>{q17}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>Will you offer a preferred return? If so, what are the terms?
+										state)
+										<p style={{color: 'red'}}>{q18}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>Will you offer a hurdle rate?
+										<p style={{color: 'red'}}>{q19}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What, if any, is the management fee?
+										<p style={{color: 'red'}}>{q20}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What, if any, is the administration fee?
+										<p style={{color: 'red'}}>{q21}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What, if any, are the other fees?
+										<p style={{color: 'red'}}>{q22}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>What, if any, is the carry interest for the general partner?
+										<p style={{color: 'red'}}>{q23}</p>
+									</p>
+								</IonItem>
+								<IonItem>
+									<p style={{fontWeight: 'bold'}}>Are there any other important terms?
+										<p style={{color: 'red'}}>{q24}</p>
+									</p>
+								</IonItem> 
+							</div>
+															
 								<IonItem className="cert">
 									<IonLabel>
 										I hereby certify that the above statements are true and correct to the best of
 										my knowledge
 									</IonLabel>
-									<IonCheckbox slot="start"  ref={myBox} checked={false}/>
+									<IonCheckbox slot="start"  onIonChange={checkboxHandler}/>
 								</IonItem>
 								<IonButton
+									
+									type="button"
+
+									className="ion-margin-top"
+									expand="block"
+									onClick={itemBack}
+									style={{
+										width: '30%',
+										margin: '0 auto',
+										marginBottom: '40px',
+										color: '#000'
+									}}
+								>
+									GoBack
+								</IonButton>
+
+								<IonButton
+									disabled = {!agree}
 									type="submit"
 									id = 'submit_button'
-									ref ={myBox}
 									className="ion-margin-top"
 									expand="block"
 									onClick={handleSubmit}
-									disabled={disableSubmitBtn}
 									style={{
 										width: '30%',
 										margin: '0 auto',
@@ -588,10 +787,14 @@ export const Questions: React.FC = () => {
 								>
 									Submit
 								</IonButton>
+							
+							
+	
 							</IonSlide>
+						
 						</IonSlides>
 					
-					<div style={{ textAlign: 'center', paddingTop: '12px',paddingBottom: '310px'}}>
+					<div style={{ textAlign: 'center', paddingTop: '100px',paddingBottom: '310px'}}>
 						<IonButton disabled={disablePrevBtn} onClick={() => onBtnClicked("prev")}>
 							<IonIcon icon={arrowBackOutline} style={{ position: 'relative', top: '3px' }} />
 						</IonButton>
