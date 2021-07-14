@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonContent, IonPage, IonRouterOutlet, IonRow } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Auth0Provider } from "@auth0/auth0-react";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -18,6 +19,7 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+import './assets/HKGrotesk-Regular.woff';
 import './assets/gainvest.css';
 
 /* Theme variables */
@@ -33,32 +35,59 @@ import Details from './pages/Details';
 import Funds from './pages/Funds';
 import NewPassword from './pages/NewPassword';
 import Menu from './pages/Menu';
+import ActivityFeed from './pages/ActivityFeed';
+import NotificationFeed from './pages/NotificationFeed';
+import Auth0ProviderWithHistory from "./components/Auth0ProviderWithHistory";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Loading } from "./components/Loading";
 
 // import { UserContext } from './contexts/UserContext'
 
 // import LogRocket from 'logrocket';
 // LogRocket.init('bak3sl/gainvest2');
 
-const App: React.FC = () => (
+  
+
+const App: React.FC = () => {
+	// const { isLoading } = useAuth0();
+	// console.log(isLoading);
+
+
+	// if (isLoading) {
+	// 	return (
+	// 		<IonApp>
+	// 			<IonPage>
+	// 				<Loading />
+	// 			</IonPage>
+	// 		</IonApp>
+	// 	);
+	// }
+	return (
+	
 	// <UserContext.Provider value={UserInfo}>
 	<IonApp>
 		<IonReactRouter>
-			<IonRouterOutlet id="main">
-				<Route path="/" component={Welcome} exact={true} />
-				<Route path="/portal" component={Portal} exact={true} />
-				<Route path="/chat" component={Chat} exact={true} />
-				<Route path="/dashboard" component={Dashboard} exact={true} />
-				<Route path="/signup" component={SignUp} exact={true} />
-				<Route path="/questions" component={Questions} exact={true} />
-				<Route path="/intro" component={Intro} exact={true} />
-				<Route path="/documents" component={Details} exact={true} />
-				<Route path="/funds" component={Funds} exact={true} />
-				<Route path="/new_password" component={NewPassword} exact={true} />
-				<Route path="/menu" component={Menu} exact={true} />
-				<Route render={() => <Redirect to="/" />} />
-			</IonRouterOutlet>
+			<Auth0ProviderWithHistory>
+				<IonRouterOutlet id="main">
+					<Route path="/" component={Welcome} exact={true} />
+					<Route path="/portal" component={Portal} exact={true} />
+					<Route path="/chat" component={Chat} exact={true} />
+					<Route path="/dashboard" component={Dashboard} exact={true} />
+					<Route path="/signup" component={SignUp} exact={true} />
+					<Route path="/questions" component={Questions} exact={true} />
+					<Route path="/intro" component={Intro} exact={true} />
+					<Route path="/documents" component={Details} exact={true} />
+					<Route path="/funds" component={Funds} exact={true} />
+					<Route path="/new_password" component={NewPassword} exact={true} />
+					<Route path="/menu" component={Menu} exact={true} />
+					<Route path="/feed" component={ActivityFeed} exact={true} />
+					<Route path="/notifications" component={NotificationFeed} exact={true} />
+					<Route render={() => <Redirect to="/" />} />
+				</IonRouterOutlet>
+			</Auth0ProviderWithHistory>
 		</IonReactRouter>
 	</IonApp>
+	
 	// </UserContext.Provider>
 	// 	<userContext.Consumer>
 	//     {({user, logoutUser}) => {
@@ -123,6 +152,6 @@ const App: React.FC = () => (
 	// 		</IonReactRouter>
 	// 	</UserContext.Provider>
 	// </IonApp>
-);
+)};
 
 export default App;

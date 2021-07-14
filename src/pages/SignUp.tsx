@@ -15,6 +15,7 @@ import {
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { Footer } from '../components/Footer';
 
 const SignUp: React.FC = () => {
 	const history = useHistory();
@@ -68,7 +69,7 @@ const SignUp: React.FC = () => {
 
 		const api = axios.create({
 			//baseURL: 'http://localhost:3000/'
-			baseURL: 'https://gainvest-api.com'
+			baseURL: process.env.REACT_APP_GAINVEST_API
 		});
 
 		api
@@ -105,7 +106,7 @@ const SignUp: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent class="space-bg" fullscreen>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#213861' }}>
 					<IonRow>
 						<IonCol>
 							<IonAlert
@@ -138,7 +139,10 @@ const SignUp: React.FC = () => {
 							/>
 						</IonCol>
 					</IonRow>
-					<form className="ion-padding form">
+					<IonRow>
+						<h3 style={{textAlign:'center', width:'100%'}}>First, Let's create your Account</h3>		
+					</IonRow>
+					<IonRow>
 						<IonItem class="login-input">
 							<IonLabel position="floating">First Name</IonLabel>
 							<IonInput
@@ -173,26 +177,22 @@ const SignUp: React.FC = () => {
 								id="confirm"
 							/>
 						</IonItem>
-						<IonButton className="ion-margin-top" onClick={handleRegister} expand="block">
+					</IonRow>
+					<div style={{textAlign: 'center'}}>
+						<IonButton style={{maxWidth: '40%', margin:'20px auto'}} className="ion-margin-top" onClick={handleRegister} expand="block">
 							Register
 						</IonButton>
-					</form>
+					</div>
 					<IonRow>
 						<IonCol>
-							<p style={{ fontSize: 'medium', textAlign: 'center', color: '#777' }}>
-								Already have an account? <a href="/portal">Sign In!</a>
+							<p style={{ fontSize: 'medium', textAlign: 'center', color: '#d7d7d7' }}>
+								Already have an account? <a href="/welcome">Sign In!</a>
 							</p>
 						</IonCol>
 					</IonRow>
 				</div>
 			</IonContent>
-			<IonFooter>
-				<IonToolbar color="dark">
-					<p style={{ fontSize: 'medium', textAlign: 'center', paddingBottom: '0px' }}>
-						&copy; 2021 Gainvest Holdings LLC All rights reserved.
-					</p>
-				</IonToolbar>
-			</IonFooter>
+			<Footer />
 		</IonPage>
 	);
 };

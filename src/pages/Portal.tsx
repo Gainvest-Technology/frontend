@@ -99,7 +99,7 @@ const Portal: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent fullscreen>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
+				<div className="backy" style={{ height: '100%', width: '100%', background: '#213861' }}>
 					<IonRow>
 						<IonCol>
 							<IonAlert

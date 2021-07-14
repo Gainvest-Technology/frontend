@@ -18,14 +18,93 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import '../assets/gainvest.css';
+import { Footer } from '../components/Footer';
 
 const Welcome: React.FC = () => {
+	const history = useHistory();
+	const [ email, setEmail ] = useState<string>('');
+	const [ password, setPassword ] = useState<string>('');
+	const [ iserror, setIserror ] = useState<boolean>(false);
+	const [ message, setMessage ] = useState<string>('');
+	const { loginWithRedirect, logout } = useAuth0();
+
+	function validateEmail(email: string) {
+		const regexp = new RegExp(
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		);
+		return regexp.test(String(email).toLowerCase());
+	}
+
+	const handleLogin = async (event: { preventDefault: () => void }) => {
+		if (!email) {
+			setMessage('Please enter a valid email');
+			setIserror(true);
+			return;
+		}
+		if (validateEmail(email) === false) {
+			setMessage('Your email is invalid');
+			setIserror(true);
+			return;
+		}
+
+		if (!password || password.length < 6) {
+			setMessage('Please enter your password');
+			setIserror(true);
+			return;
+		}
+
+		const loginData = {
+			email: email,
+			password: password
+		};
+
+		const api = axios.create({
+			baseURL: process.env.REACT_APP_GAINVEST_API
+			//baseURL: 'http://localhost:3000'
+		});
+		api
+			.post('/users/login', loginData)
+			.then((response) => {
+				if (response.data.needsUpdate) {
+					history.push({
+						pathname: '/new_password',
+						state: {
+							data: {
+								email: response.data.email
+							}
+						}
+					});
+				} else {
+					history.push({
+						pathname: '/dashboard',
+						state: {
+							data: {
+								token: response.data.token,
+								chatToken: response.data.chatToken,
+								firstName: response.data.firstName,
+								lastName: response.data.lastName,
+								email: response.data.email,
+								id: response.data.userId,
+								chatApiKey: response.data.chatApiKey,
+								chatId: response.data.chatId
+							}
+						}
+					});
+				}
+			})
+			.catch((error) => {
+				setMessage('Email and/or Password Is Incorrect');
+				setIserror(true);
+			});
+	}
+
 	return (
 		<IonPage>
 			<IonContent>
-				<div className="backy" style={{ height: '100%', width: '100%', background: '#203354' }}>
+				<div className="backy" style={{ height: '100%', width: '100%'}}>
 					<IonRow>
 						<IonCol class="logo-container">
 							<IonImg
@@ -35,15 +114,16 @@ const Welcome: React.FC = () => {
 						</IonCol>
 					</IonRow>
 					<IonGrid>
-						<div style={{ margin: 'auto 0', paddingTop: '20%' }}>
+						<div style={{ margin: 'auto 0'}}>
 							<IonRow>
 								<IonCol>
 									<p
 										style={{
 											textAlign: 'center',
 											fontSize: '40px',
-											paddingTop: '30px',
-											color: '#999'
+											color: '#dedede',
+											marginTop: '10px',
+											marginBottom: '30px'
 										}}
 									>
 										Welcome to Gainvest
@@ -52,38 +132,72 @@ const Welcome: React.FC = () => {
 							</IonRow>
 							<IonRow>
 								<IonCol>
-									<a href="/questions">
-										<IonButton
+									
+										{/* <IonButton
+											href="/signup"
 											className="ion-margin-top"
 											expand="block"
 											style={{ width: '30%', margin: '0 auto', color: '#fff' }}
 										>
 											Get Started
-										</IonButton>
-									</a>
+										</IonButton> */}
+									
 									<p
 										style={{
 											fontSize: 'medium',
 											textAlign: 'center',
-											color: '#999',
-											marginTop: '30px'
+											color: '#dedede',
+											marginTop: '10px'
 										}}
 									>
-										Have an account already? <a href="/portal">Sign In</a>
+										Have an account already? Sign in below
 									</p>
+								</IonCol>
+							</IonRow>
+							<IonRow>
+								<IonCol>
+										<IonButton
+											onClick={loginWithRedirect}
+											className="ion-margin-top"
+											expand="block"
+											style={{ width: '30%', margin: '0 auto', color: '#fff' }}
+										>
+											Sign In
+										</IonButton>
+									{/* <IonItem class="login-input">
+										<IonLabel position="floating">Email</IonLabel>
+										<IonInput type="email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
+									</IonItem>
+									<IonItem class="login-input">
+										<IonLabel position="floating">Password</IonLabel>
+										<IonInput
+											type="password"
+											value={password}
+											onIonChange={(e) => setPassword(e.detail.value!)}
+										/>
+									</IonItem>
+									<IonButton style={{width: '30%', margin: '30px auto'}} className="ion-margin-top" onClick={handleLogin} expand="block">
+										Login
+									</IonButton> */}
+								</IonCol> 
+							</IonRow>
+							<IonRow>
+								<IonCol>
+									<IonAlert
+										isOpen={iserror}
+										onDidDismiss={() => setIserror(false)}
+										cssClass="my-custom-class"
+										header={'Error!'}
+										message={message}
+										buttons={[ 'Dismiss' ]}
+									/>
 								</IonCol>
 							</IonRow>
 						</div>
 					</IonGrid>
 				</div>
 			</IonContent>
-			<IonFooter>
-				<IonToolbar color="dark">
-					<p style={{ fontSize: 'medium', textAlign: 'center', paddingBottom: '0px' }}>
-						&copy; 2021 Gainvest Holdings LLC All rights reserved.
-					</p>
-				</IonToolbar>
-			</IonFooter>
+			<Footer />
 		</IonPage>
 	);
 };
