@@ -280,7 +280,7 @@
 }
 
 .str-chat {
-  height: 77vh !important;
+  height: calc(100vh - 121px) !important;
 }
 
 .str-chat-channel-list--open.messaging {
@@ -445,3 +445,26 @@ input:-webkit-autofill:active
     display: flex;
   }
 } */
+
+
+.str-chat.str-chat-channel-list.str-chat-channel-list--open {
+  width: 100%;
+  margin: 0;
+  margin-top: 54px;
+}
+
+.str-chat.str-chat-channel-list.str-chat-channel-list--open
+  .str-chat__channel-preview-messenger--active {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.full-page-loading {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+}
