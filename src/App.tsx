@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonContent, IonPage, IonRouterOutlet, IonRow } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { Chat as StreamChat } from "stream-chat-react";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -27,7 +28,8 @@ import './theme/variables.css';
 import Welcome from './pages/Welcome';
 import Portal from './pages/Portal';
 import SignUp from './pages/SignUp';
-import Chat from './pages/Chat';
+// import Chat from './pages/Chat';
+import GainvestChannelList from './pages/ChannelList';
 import Questions from './pages/Questions';
 import Intro from './pages/Intro';
 import Dashboard from './pages/Dashboard';
@@ -40,6 +42,7 @@ import NotificationFeed from './pages/NotificationFeed';
 import Auth0ProviderWithHistory from "./components/Auth0ProviderWithHistory";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Loading } from "./components/Loading";
+import chatClient from './utils/getStream'
 
 // import { UserContext } from './contexts/UserContext'
 
@@ -68,22 +71,24 @@ const App: React.FC = () => {
 	<IonApp>
 		<IonReactRouter>
 			<Auth0ProviderWithHistory>
-				<IonRouterOutlet id="main">
-					<Route path="/" component={Welcome} exact={true} />
-					<Route path="/portal" component={Portal} exact={true} />
-					<Route path="/chat" component={Chat} exact={true} />
-					<Route path="/dashboard" component={Dashboard} exact={true} />
-					<Route path="/signup" component={SignUp} exact={true} />
-					<Route path="/questions" component={Questions} exact={true} />
-					<Route path="/intro" component={Intro} exact={true} />
-					<Route path="/documents" component={Details} exact={true} />
-					<Route path="/funds" component={Funds} exact={true} />
-					<Route path="/new_password" component={NewPassword} exact={true} />
-					<Route path="/menu" component={Menu} exact={true} />
-					<Route path="/feed" component={ActivityFeed} exact={true} />
-					<Route path="/notifications" component={NotificationFeed} exact={true} />
-					<Route render={() => <Redirect to="/" />} />
-				</IonRouterOutlet>
+				<StreamChat initialNavOpen={false} client={chatClient} theme="messaging light">
+					<IonRouterOutlet id="main">
+						<Route path="/" component={Welcome} exact={true} />
+						<Route path="/portal" component={Portal} exact={true} />
+						<Route path="/chat" component={GainvestChannelList} exact={true} />
+						<Route path="/dashboard" component={Dashboard} exact={true} />
+						<Route path="/signup" component={SignUp} exact={true} />
+						<Route path="/questions" component={Questions} exact={true} />
+						<Route path="/intro" component={Intro} exact={true} />
+						<Route path="/documents" component={Details} exact={true} />
+						<Route path="/funds" component={Funds} exact={true} />
+						<Route path="/new_password" component={NewPassword} exact={true} />
+						<Route path="/menu" component={Menu} exact={true} />
+						<Route path="/feed" component={ActivityFeed} exact={true} />
+						<Route path="/notifications" component={NotificationFeed} exact={true} />
+						<Route render={() => <Redirect to="/" />} />
+					</IonRouterOutlet>
+				</StreamChat>
 			</Auth0ProviderWithHistory>
 		</IonReactRouter>
 	</IonApp>
