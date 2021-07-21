@@ -71,7 +71,7 @@ const App: React.FC = () => {
 	<IonApp>
 		<IonReactRouter>
 			<Auth0ProviderWithHistory>
-				<StreamChat initialNavOpen={false} client={chatClient} theme="messaging light">
+				<StreamChat initialNavOpen client={chatClient} theme="messaging light">
 					<IonRouterOutlet id="main">
 						<Route path="/" component={Welcome} exact={true} />
 						<Route path="/portal" component={Portal} exact={true} />

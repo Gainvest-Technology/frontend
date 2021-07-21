@@ -280,7 +280,7 @@
 }
 
 .str-chat {
-  height: calc(100vh - 121px) !important;
+  height: calc(100vh - 134px) !important;
 }
 
 .str-chat-channel-list--open.messaging {
@@ -467,4 +467,36 @@ input:-webkit-autofill:active
   right: 0;
   bottom: 0;
   z-index: 10000;
+}
+
+@media (max-width: 800px) {
+  .str-chat__header-hamburger { 
+    position: relative;
+  }
+
+  .str-chat__header-hamburger > .str-chat__header-hamburger--line:last-child {
+    background: transparent;
+  }
+  .str-chat__header-hamburger > .str-chat__header-hamburger--line:nth-child(2) {
+    position: absolute;
+    top: 18px;
+    width: 22px;
+  }
+  .str-chat__header-hamburger > .str-chat__header-hamburger--line:first-child {
+    background: transparent;
+    border: solid var(--primary-color);
+    border-width: 0 2px 2px 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 0;
+    transform: rotate(135deg);
+    position: absolute;
+    top: 12px;
+    left: 0;
+  }  
+
+  .str-chat__header-hamburger:hover .str-chat__header-hamburger--line:first-child,
+  .str-chat__header-hamburger:hover .str-chat__header-hamburger--line:last-child {
+    background: transparent;
+  }
 }

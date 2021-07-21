@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Channel, ChannelList, Window, useChatContext } from "stream-chat-react";
 import { ChannelHeader, MessageList } from "stream-chat-react";
 import { MessageInput, Thread } from "stream-chat-react";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, useIonViewDidEnter, useIonViewWillEnter } from "@ionic/react";
 import "stream-chat-react/dist/css/index.css";
 import { Header } from "../components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -12,20 +12,21 @@ import Api from "../utils/axios";
 import chatClient from "../utils/getStream";
 import Loading from "../components/Loading";
 
-const ChannelOpener = ({ openChannelList, setShowloading, isFirstLoad, setIsFirstLoad }: any) => {
+const ChannelOpener = ({ openChannelList, setShowloading, isFirstLoad, showLoading }: any) => {
     useEffect(() => {
-        if (isFirstLoad) {
+        if (isFirstLoad.current ) {
             openChannelList();
-            setIsFirstLoad(false);
+            isFirstLoad.current = false;
             setTimeout(() => {
                 setShowloading(false);
             }, 300); // need to hide while animating
         }
-    }, [isFirstLoad]);
+    }, []);
     return null;
 };
 
 const GainvestChannelList: React.FC = (props: any) => {
+    const isFirstLoad = useRef(true);
     const history = useHistory();
     const { user, isAuthenticated, isLoading } = useAuth0();
     const { openMobileNav } = useChatContext();
@@ -33,7 +34,21 @@ const GainvestChannelList: React.FC = (props: any) => {
     const [userDetail, setUserDetail] = useState<{ token: string; nickname: string }>();
     const [chatReady, setChatReady] = useState(false);
     const [showLoading, setShowloading] = useState(true);
-    const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+    useIonViewWillEnter(() => {
+        setShowloading(true);
+    });
+
+    useIonViewDidEnter(() => {
+        // used if chat already opened before, 
+        if (!isFirstLoad.current) {
+            if (openMobileNav) openMobileNav();
+            setTimeout(() => {
+                setShowloading(false);
+            }, 300); // need to hide while animating
+        }
+        
+    });
 
     const getUserDetail = async () => {
         if (user) {
@@ -63,11 +78,6 @@ const GainvestChannelList: React.FC = (props: any) => {
         }
     };
 
-    const locationChanged = () => {
-        setShowloading(true);
-        setIsFirstLoad(true);
-    };
-
     useEffect(() => {
         if (userDetail) connectChat();
     }, [userDetail]);
@@ -79,13 +89,6 @@ const GainvestChannelList: React.FC = (props: any) => {
     useEffect(() => {
         isAccessible();
     }, [isLoading, isAuthenticated]);
-
-    useEffect(() => {
-        const unlistenRouteChanged = props.history.listen(locationChanged);
-        return () => {
-            unlistenRouteChanged();
-        };
-    }, []);
 
     return (
         <IonPage>
@@ -106,7 +109,7 @@ const GainvestChannelList: React.FC = (props: any) => {
                                 isFirstLoad={isFirstLoad}
                                 setShowloading={setShowloading}
                                 openChannelList={openMobileNav}
-                                setIsFirstLoad={setIsFirstLoad}
+                                showLoading={showLoading}
                             />
                         </Channel>
                     </>
