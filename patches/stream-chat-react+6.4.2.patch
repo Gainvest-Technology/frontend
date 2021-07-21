@@ -1,0 +1,14 @@
+diff --git a/node_modules/stream-chat-react/dist/components/ChannelList/hooks/useMobileNavigation.js b/node_modules/stream-chat-react/dist/components/ChannelList/hooks/useMobileNavigation.js
+index ebc82a0..10b0547 100644
+--- a/node_modules/stream-chat-react/dist/components/ChannelList/hooks/useMobileNavigation.js
++++ b/node_modules/stream-chat-react/dist/components/ChannelList/hooks/useMobileNavigation.js
+@@ -6,7 +6,8 @@ export var useMobileNavigation = function (channelListRef, navOpen, closeMobileN
+                 channelListRef.current &&
+                 !channelListRef.current.contains(event.target) &&
+                 navOpen) {
+-                closeMobileNav();
++                // needed for channel list view stay open when click outside
++                // closeMobileNav();
+             }
+         };
+         document.addEventListener('click', handleClickOutside);
